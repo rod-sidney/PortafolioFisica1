@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movimiento Circular Uniforme | Portafolio Física I</title>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Librería p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <style>
+        /* Slider personalizado */
+        .slider-container {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .slider-label {
+            font-size: 0.85rem;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+        .custom-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(48, 66, 181, 0.4);
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent-purple);
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(170, 162, 245, 0.5);
+            transition: var(--transition-smooth);
+        }
+        .custom-slider::-webkit-slider-thumb:hover {
+            background: var(--accent-light);
+            transform: scale(1.15);
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-container">
+            <span class="nav-institution">Universidad CENFOTEC</span>
+            <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Navegación de retorno -->
+        <a href="../index.html" class="btn-back">
+            <span>&larr;</span> Volver al Inicio
+        </a>
+
+        <!-- Encabezado del Tema -->
+        <header class="hero" style="margin-bottom: 3rem;">
+            <div class="hero-content">
+                <span class="section-subtitle" style="color: var(--accent-purple);">Módulo Cinemática</span>
+                <h1 class="hero-title" style="font-size: 3rem;">Movimiento Circular Uniforme (MCU)</h1>
+                <p class="hero-description">Análisis de giros sobre un eje central a ritmo uniforme con velocidad angular físicamente constante en el tiempo.</p>
+            </div>
+        </header>
+
+        <!-- Contenedor de una sola columna -->
+        <div class="subpage-layout">
+            <!-- Sección A: Teoría y Aplicación en Software -->
+            <section class="theory-section">
+                <!-- Caso Específico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Caso Específico</span>
+                    <h3 class="section-title">Programación de la rotación del haz de un radar de detección de colisiones, el cual barre el área a un ritmo constante</h3>
+                    <div class="text-content">
+                        <p>
+                            En muchos simuladores, robótica o videojuegos, tenemos elementos que giran en círculos perfectos, como el escáner de un radar. Si el radar gira dando "pasos" fijos cada vez que la pantalla se actualiza, una computadora muy rápida lo hará girar como un ventilador, y una lenta lo hará girar a tirones.
+                        </p>
+                        <p>
+                            Para solucionarlo, usamos la física real: definimos una velocidad de giro constante basada en el tiempo real, asegurando que barra el área al mismo ritmo en cualquier dispositivo.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concepto Físico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Concepto Físico Aplicado</span>
+                    <h3 class="section-title">Velocidad Angular y Cinemática Rotacional</h3>
+                    <div class="text-content">
+                        <p>
+                            El comportamiento rotacional uniforme se rige mediante la velocidad angular (&omega;), la cual cuantifica la rapidez del cambio de ángulo (&theta;) en función de una unidad de tiempo (&Delta;t). A partir de ella se deduce la velocidad tangencial (v) en el extremo de radio (r):
+                        </p>
+                    </div>
+
+                    <!-- Ecuaciones destacadas -->
+                    <div class="equations-container">
+                        <div class="equation-item">
+                            <span class="equation-label">Velocidad Angular (&omega;)</span>
+                            <span class="equation-math">&omega; = &Delta;&theta; / &Delta;t</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Posición Angular (&theta;)</span>
+                            <span class="equation-math">&theta; = &omega; &middot; &Delta;t</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Velocidad Tangencial (v)</span>
+                            <span class="equation-math">v = r &middot; &omega;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Justificación -->
+                <div class="section-card">
+                    <span class="section-subtitle">Justificación en Ingeniería</span>
+                    <h3 class="section-title">Consistencia de Fotogramas (DeltaTime Rendering)</h3>
+                    <div class="text-content">
+                        <p>
+                            Al programar el sistema usando la velocidad angular real en función del tiempo transcurrido (calculando el ángulo como &theta; = &omega; &middot; &Delta;t), se evita sumar grados fijos por cada frame. Esto garantiza que la rotación sea físicamente constante y unificada para cualquier usuario.
+                        </p>
+                        <p>
+                            Implementar esta metodología resuelve los problemas de desincronización en entornos multijugador o sistemas embebidos de tiempo real, mejorando la integridad del software sin importar la carga gráfica o la capacidad de cómputo del cliente.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección B: Simulación Interactiva -->
+            <section class="sim-section">
+                <div class="sim-container-card">
+                    <span class="section-subtitle">Interactividad</span>
+                    <h3 class="section-title" style="font-size: 1.4rem; margin-bottom: 1rem;">Radar con Barrido Físico de Precisión</h3>
+                    
+                    <!-- Lienzo de p5.js -->
+                    <div id="sim-container"></div>
+
+                    <!-- Panel de Telemetría -->
+                    <div class="telemetry-panel">
+                        <div class="telemetry-title">Telemetría de Barrido</div>
+                        <div class="telemetry-grid">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Ángulo actual (&theta; Rad)</span>
+                                <span id="val-theta-rad" class="telemetry-value">0.000 rad</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Ángulo actual (&theta; Deg)</span>
+                                <span id="val-theta-deg" class="telemetry-value">0°</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad Angular (&omega;)</span>
+                                <span id="val-omega" class="telemetry-value">1.00 rad/s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Periodo de Rotación (T)</span>
+                                <span id="val-period" class="telemetry-value">6.28 s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Frecuencia (f)</span>
+                                <span id="val-freq" class="telemetry-value">0.16 Hz</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">DeltaTime actual</span>
+                                <span id="val-deltatime" class="telemetry-value">16.6 ms</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Control de Velocidad Angular -->
+                    <div class="slider-container">
+                        <label for="speed-slider" class="slider-label">Ajustar Velocidad Angular (&omega;):</label>
+                        <input id="speed-slider" class="custom-slider" type="range" min="0" max="3" step="0.1" value="1.0">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Sidney Rodriguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+        </div>
+    </footer>
+
+    <!-- Script de la simulación -->
+    <script src="../assets/js/sim-mcu.js"></script>
+</body>
+</html>
