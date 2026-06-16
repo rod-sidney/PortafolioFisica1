@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuerza Centrípeta y Fuerzas G | Portafolio Física I</title>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Librería p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-container">
+            <span class="nav-institution">Universidad CENFOTEC</span>
+            <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Navegación de retorno -->
+        <a href="../index.html" class="btn-back">
+            <span>&larr;</span> Volver al Inicio
+        </a>
+
+        <!-- Encabezado del Tema -->
+        <header class="hero" style="margin-bottom: 3rem;">
+            <div class="hero-content">
+                <span class="section-subtitle" style="color: var(--accent-purple);">Módulo Dinámica</span>
+                <h1 class="hero-title" style="font-size: 3rem;">Fuerza Centrípeta</h1>
+                <p class="hero-description">Análisis de la aceleración radial hacia el centro de rotación y su impacto límite en la biometría humana dentro de entornos simulados.</p>
+            </div>
+        </header>
+
+        <!-- Contenedor de una sola columna -->
+        <div class="subpage-layout">
+            <!-- Sección A: Teoría y Aplicación en Software -->
+            <section class="theory-section">
+                <!-- Caso Específico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Caso Específico</span>
+                    <h3 class="section-title">Algoritmo de "Blackout" en simuladores de vuelo por exceso de Fuerzas G</h3>
+                    <div class="text-content">
+                        <p>
+                            En los simuladores de combate aéreo, el software necesita saber cuándo el jugador realiza una maniobra de giro tan cerrada que excede los límites biológicos humanos. Dado que la fuerza centrípeta es la causa del movimiento circular, el motor de físicas calcula la aceleración centrípeta a la que está sometida la cámara (la cabeza del piloto) durante un giro.
+                        </p>
+                        <p>
+                            Si este valor excede un umbral (por ejemplo, 9G), el software activa un filtro visual de opacidad que oscurece la pantalla gradualmente, simulando la falta de flujo sanguíneo al cerebro del piloto (G-LOC).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concepto Físico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Concepto Físico Aplicado</span>
+                    <h3 class="section-title">Aceleración, Fuerza Centrípeta y Factor de Carga G</h3>
+                    <div class="text-content">
+                        <p>
+                            La fuerza centrípeta (F<sub>c</sub>) es la fuerza neta que actúa sobre un cuerpo para mantenerlo en una trayectoria curvilínea, dirigida radialmente hacia el centro. De acuerdo con las leyes cinemáticas y la segunda ley de Newton, se define matemáticamente mediante:
+                        </p>
+                    </div>
+
+                    <!-- Ecuaciones destacadas -->
+                    <div class="equations-container">
+                        <div class="equation-item">
+                            <span class="equation-label">Aceleración Centrípeta (a<sub>c</sub>)</span>
+                            <span class="equation-math">a<sub>c</sub> = V<sup>2</sup> / R</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Fuerza Centrípeta (F<sub>c</sub>)</span>
+                            <span class="equation-math">F<sub>c</sub> = m &middot; a<sub>c</sub></span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Equivalencia de Fuerzas G</span>
+                            <span class="equation-math">G = a<sub>c</sub> / 9.8</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Justificación -->
+                <div class="section-card">
+                    <span class="section-subtitle">Justificación en Ingeniería</span>
+                    <h3 class="section-title">Mecánicas de Simulación Emergentes</h3>
+                    <div class="text-content">
+                        <p>
+                            A diferencia de una animación de daño pre-programada, este sistema es dinámico y emergente. Al utilizar las ecuaciones físicas exactas que dependen de la velocidad (V) y el radio de giro (R), el efecto visual se ajusta en tiempo real a las acciones impredecibles del jugador.
+                        </p>
+                        <p>
+                            Esto obliga al usuario a gestionar su energía cinética realista en lugar de abusar de maniobras imposibles, mejorando drásticamente el realismo y profundidad táctica del simulador de vuelo.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección B: Simulación Interactiva -->
+            <section class="sim-section">
+                <div class="sim-container-card">
+                    <span class="section-subtitle">Elemento de apoyo</span>
+                    <h3 class="section-title" style="font-size: 1.4rem; margin-bottom: 1rem;">Simulador de Fuerzas G en Caza F-16</h3>
+                    
+                    <!-- Lienzo de p5.js -->
+                    <div id="sim-container"></div>
+
+                    <!-- Panel de Telemetría -->
+                    <div class="telemetry-panel">
+                        <div class="telemetry-title">Telemetría Biométrica de Cabina</div>
+                        <div class="telemetry-grid">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad Tangencial (V)</span>
+                                <span id="val-v" class="telemetry-value">120 m/s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Radio de Giro (R)</span>
+                                <span id="val-r" class="telemetry-value">400 m</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Aceleración Centrípeta</span>
+                                <span id="val-ac" class="telemetry-value">0.0 m/s²</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Factor de Carga G</span>
+                                <span id="val-gforce" class="telemetry-value">0.0 G</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Fuerza Centrípeta (Piloto 80kg)</span>
+                                <span id="val-fc" class="telemetry-value">0 N</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Estado Fisiológico</span>
+                                <span id="val-status" class="telemetry-value" style="font-weight: 700;">ESTABLE (Normal)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles Interactivos -->
+                    <div class="controls-panel">
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span class="slider-label">Ajustar Velocidad (V)</span>
+                                <span class="slider-value"><span id="lbl-v">120</span> m/s</span>
+                            </div>
+                            <input id="slider-v" class="custom-slider" type="range" min="80" max="250" step="5" value="120" oninput="document.getElementById('lbl-v').innerText = this.value">
+                        </div>
+
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span class="slider-label">Ajustar Radio de Giro (R)</span>
+                                <span class="slider-value"><span id="lbl-r">400</span> m</span>
+                            </div>
+                            <input id="slider-r" class="custom-slider" type="range" min="200" max="800" step="10" value="400" oninput="document.getElementById('lbl-r').innerText = this.value">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Sidney Rodríguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+        </div>
+    </footer>
+
+    <!-- Script de la simulación -->
+    <script src="../assets/js/sim-centripeta.js"></script>
+</body>
+</html>
