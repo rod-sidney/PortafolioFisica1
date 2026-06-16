@@ -617,5 +617,42 @@ body {
     flex-wrap: wrap;
 }
 
+/* Contenedor Multimedia */
+.media-container-card {
+    background-color: var(--bg-card);
+    border: 1px solid rgba(48, 66, 181, 0.25);
+    border-radius: 12px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-wrapper {
+    width: 100%;
+    max-width: 720px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    background-color: #000000;
+}
+
+.video-player {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16/9;
+}
+
+.video-caption {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+    text-align: center;
+    letter-spacing: 0.02em;
+}
+
 
 

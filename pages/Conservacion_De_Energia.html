@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conservación de la Energía | Portafolio Física I</title>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- MathJax para renderizado matemático premium -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-container">
+            <span class="nav-institution">Universidad CENFOTEC</span>
+            <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Navegación de retorno -->
+        <a href="../index.html" class="btn-back">
+            <span>&larr;</span> Volver al Inicio
+        </a>
+
+        <!-- Encabezado del Tema -->
+        <header class="hero">
+            <div class="hero-content">
+                <span class="section-subtitle">Módulo Trabajo y Energía</span>
+                <h1 class="hero-title">Conservación de la Energía</h1>
+                <p class="hero-description">Análisis de la conversión y constancia de la energía mecánica aplicados a la optimización algorítmica de simuladores balísticos.</p>
+            </div>
+        </header>
+
+        <!-- Contenedor de una sola columna -->
+        <div class="subpage-layout">
+            <!-- Sección A: Teoría y Caso Específico -->
+            <section class="theory-section">
+                <!-- Caso Específico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Caso Específico</span>
+                    <h3 class="section-title">Optimización en la fase de análisis de un simulador de péndulo balístico</h3>
+                    <div class="text-content">
+                        <p>
+                            Cuando programamos un péndulo balístico (donde un proyectil impacta un bloque y ambos se elevan), calcular cuadro por cuadro cómo la gravedad los frena es ineficiente. La física nos dice que la energía no se pierde, se transforma.
+                        </p>
+                        <p>
+                            Toda la energía de movimiento (cinética) que tienen justo después del choque se convertirá exactamente en energía de altura (potencial) al llegar a su punto más alto y detenerse por una fracción de segundo.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concepto Físico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Concepto Físico Aplicado</span>
+                    <h3 class="section-title">Conservación de la Energía Mecánica</h3>
+                    <div class="text-content">
+                        <p>
+                            Igualando la energía cinética máxima en la base del péndulo con la energía potencial gravitacional en su altura máxima de balanceo, podemos predecir analíticamente el punto exacto de retorno sin iteraciones temporales:
+                        </p>
+                    </div>
+
+                    <!-- Ecuaciones destacadas -->
+                    <div class="equations-container">
+                        <div class="equation-item">
+                            <span class="equation-label">Conservación de Energía</span>
+                            <span class="equation-math">$$E_i = E_f$$</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Ecuación del Balanceo</span>
+                            <span class="equation-math">$$\frac{1}{2}m V^2 = m g h$$</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Altura Despejada</span>
+                            <span class="equation-math">$$h = \frac{V^2}{2g}$$</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Justificación -->
+                <div class="section-card">
+                    <span class="section-subtitle">Justificación en Ingeniería</span>
+                    <h3 class="section-title">Eficiencia Computacional O(1)</h3>
+                    <div class="text-content">
+                        <p>
+                            Esto representa un salto en el rendimiento algorítmico. En lugar de simular laboriosamente el ascenso del péndulo paso a paso en un bucle <code>while</code> restando velocidad cuadro por cuadro hasta que llegue a cero, la ley de conservación de la energía nos da el resultado de la altura final instantáneamente mediante una simple operación aritmética de complejidad temporal constante \(O(1)\), liberando carga crítica del procesador.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección B: Elemento de Apoyo (Contenido Multimedia) -->
+            <section class="sim-section">
+                <div class="media-container-card">
+                    <span class="section-subtitle">Elemento de apoyo</span>
+                    <h3 class="section-title" style="margin-bottom: 2rem;">Video Demostrativo del Movimiento</h3>
+                    
+                    <!-- Reproductor de Video -->
+                    <div class="video-wrapper">
+                        <video class="video-player" controls>
+                            <source src="../assets/img/pendulo-placeholder.mp4" type="video/mp4">
+                            Tu navegador no soporta la etiqueta de video HTML5.
+                        </video>
+                    </div>
+                    
+                    <!-- Pie de video -->
+                    <p class="video-caption"></p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Sidney Rodríguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+        </div>
+    </footer>
+</body>
+</html>
