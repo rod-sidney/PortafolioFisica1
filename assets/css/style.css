@@ -610,5 +610,12 @@ body {
     transform: scale(0.98);
 }
 
+.button-group {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 
 

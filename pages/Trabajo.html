@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabajo y Energía | Portafolio Física I</title>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Librería p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <!-- MathJax para renderizado matemático premium -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-container">
+            <span class="nav-institution">Universidad CENFOTEC</span>
+            <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Navegación de retorno -->
+        <a href="../index.html" class="btn-back">
+            <span>&larr;</span> Volver al Inicio
+        </a>
+
+        <!-- Encabezado del Tema -->
+        <header class="hero">
+            <div class="hero-content">
+                <span class="section-subtitle">Módulo Trabajo y Energía</span>
+                <h1 class="hero-title">Trabajo y Energía</h1>
+                <p class="hero-description">Análisis del teorema de Trabajo-Energía Cinética aplicado al cálculo matemático y simulación realista de penetración por impacto en terreno.</p>
+            </div>
+        </header>
+
+        <!-- Contenedor de una sola columna -->
+        <div class="subpage-layout">
+            <!-- Sección A: Teoría y Caso Específico -->
+            <section class="theory-section">
+                <!-- Caso Específico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Caso Específico</span>
+                    <h3 class="section-title">Cálculo del daño por penetración de impacto en un sistema físico</h3>
+                    <div class="text-content">
+                        <p>
+                            En lugar de usar una clásica barra de "puntos de vida" en un simulador o videojuego, podemos usar la física para calcular el daño real de un impacto. Cuando un objeto pesado cae, acumula energía cinética. Al chocar contra el suelo, este ejerce una fuerza de resistencia para intentar detenerlo.
+                        </p>
+                        <p>
+                            El <strong>Trabajo</strong> es exactamente la energía que gasta el suelo en detener el objeto. Conociendo esta energía y la fuerza de resistencia del material, el software puede calcular la distancia exacta que el objeto logra hundirse, dibujando un cráter o nivel de destrucción matemáticamente preciso.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concepto Físico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Concepto Físico Aplicado</span>
+                    <h3 class="section-title">El teorema de Trabajo-Energía Cinética</h3>
+                    <div class="text-content">
+                        <p>
+                            El teorema de Trabajo-Energía Cinética establece que el trabajo neto realizado sobre un cuerpo es igual al cambio en su energía cinética. En una dimensión, integrando la fuerza sobre la distancia de desplazamiento, podemos definir la transferencia de energía y calcular los efectos de frenado mecánico:
+                        </p>
+                    </div>
+
+                    <!-- Ecuaciones destacadas -->
+                    <div class="equations-container">
+                        <div class="equation-item">
+                            <span class="equation-label">Teorema Trabajo-Energía</span>
+                            <span class="equation-math">$$\Delta K = W$$</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Definición de Trabajo</span>
+                            <span class="equation-math">$$W = \int F \cdot dx = F \Delta x \cos\theta$$</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Justificación -->
+                <div class="section-card">
+                    <span class="section-subtitle">Justificación en Ingeniería</span>
+                    <h3 class="section-title">Simulación adaptada a materiales</h3>
+                    <div class="text-content">
+                        <p>
+                            El daño o la deformación no se asigna restando valores arbitrarios. El motor de físicas del software resuelve la ecuación para la fuerza (\(F\)) o despeja la distancia de penetración (\(\Delta x\)) a partir del trabajo realizado.
+                        </p>
+                        <p>
+                            Esto permite simular impactos, abolladuras y destrucciones de terreno de forma físicamente precisa, adaptable a diferentes materiales (ej. tierra vs concreto) mediante la modificación del coeficiente de resistencia y dureza del obstáculo.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección B: Simulación Interactiva -->
+            <section class="sim-section">
+                <div class="sim-container-card">
+                    <span class="section-subtitle">Elemento de apoyo</span>
+                    <h3 class="section-title">Simulación Interactiva: Penetración de un Martinete</h3>
+                    
+                    <!-- Lienzo de p5.js -->
+                    <div id="sim-container"></div>
+
+                    <!-- Panel de Telemetría -->
+                    <div class="telemetry-panel">
+                        <div class="telemetry-title">Telemetría de Energía e Impacto</div>
+                        <div class="telemetry-grid">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Estado Físico</span>
+                                <span id="val-state" class="telemetry-value">Listo para soltar</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad Actual</span>
+                                <span id="val-v" class="telemetry-value">0.00 m/s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Energía Cinética</span>
+                                <span id="val-ke" class="telemetry-value">0.00 J</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Energía Cinética al Impacto</span>
+                                <span id="val-ke-impact" class="telemetry-value">0.00 J</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Fuerza de Resistencia (F)</span>
+                                <span id="val-f-resistance" class="telemetry-value">1500 N</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Profundidad (Trabajo Realizado)</span>
+                                <span id="val-dx" class="telemetry-value">0.000 m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles Interactivos -->
+                    <div class="controls-panel">
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span class="slider-label">Dureza del Suelo (Fuerza F)</span>
+                                <span id="val-hardness-slider" class="slider-value">1500 N</span>
+                            </div>
+                            <input type="range" id="slider-hardness" class="custom-slider" min="800" max="4000" step="100" value="1500">
+                        </div>
+                        <div class="button-group">
+                            <button id="btn-drop" class="custom-button">Soltar Martinete</button>
+                            <button id="btn-reset" class="custom-button">Reiniciar</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Sidney Rodríguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+        </div>
+    </footer>
+
+    <!-- Script de la simulación -->
+    <script src="../assets/js/sim-trabajo.js"></script>
+</body>
+</html>
