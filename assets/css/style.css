@@ -654,5 +654,12 @@ body {
     letter-spacing: 0.02em;
 }
 
+.video-wrapper iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    border-radius: 8px;
+}
+
 
 
