@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuerza de Fricción | Portafolio Física I</title>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Librería p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-container">
+            <span class="nav-institution">Universidad CENFOTEC</span>
+            <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Navegación de retorno -->
+        <a href="../index.html" class="btn-back">
+            <span>&larr;</span> Volver al Inicio
+        </a>
+
+        <!-- Encabezado del Tema -->
+        <header class="hero">
+            <div class="hero-content">
+                <span class="section-subtitle">Módulo Dinámica</span>
+                <h1 class="hero-title">Fuerza de Fricción</h1>
+                <p class="hero-description">Análisis de la resistencia al deslizamiento diferenciando el umbral límite estático de la tracción dinámica en movimiento.</p>
+            </div>
+        </header>
+
+        <!-- Contenedor de una sola columna -->
+        <div class="subpage-layout">
+            <!-- Sección A: Teoría y Aplicación en Software -->
+            <section class="theory-section">
+                <!-- Caso Específico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Caso Específico</span>
+                    <h3 class="section-title">Implementación del movimiento (player controller) en una simulación bidimensional o videojuego</h3>
+                    <div class="text-content">
+                        <p>
+                            Al programar cómo se mueve un personaje o un objeto pesado, no basta con solo sumarle velocidad al presionar una tecla. En la realidad, cuesta más esfuerzo lograr que un objeto en reposo empiece a moverse que mantenerlo en movimiento una vez que ya está deslizándose.
+                        </p>
+                        <p>
+                            En el software, simulamos esto programando dos tipos de resistencia al movimiento: la fricción estática (cuando está quieto) y la fricción cinética (cuando ya se está moviendo).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concepto Físico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Concepto Físico Aplicado</span>
+                    <h3 class="section-title">Fricción Estática vs Fricción Cinética</h3>
+                    <div class="text-content">
+                        <p>
+                            La fuerza de fricción (f) actúa tangencialmente a la superficie y en sentido opuesto al deslizamiento. La fricción estática actúa hasta un límite crítico para prevenir el movimiento, mientras que la fricción cinética ofrece una resistencia constante una vez iniciado el desplazamiento:
+                        </p>
+                    </div>
+
+                    <!-- Ecuaciones destacadas -->
+                    <div class="equations-container">
+                        <div class="equation-item">
+                            <span class="equation-label">Relación de Coeficientes</span>
+                            <span class="equation-math">&mu;<sub>s</sub> &gt; &mu;<sub>k</sub></span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Fuerza de Fricción General</span>
+                            <span class="equation-math">f = &mu; &middot; N</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Normal en Plano Horizontal</span>
+                            <span class="equation-math">N = m &middot; g</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Justificación -->
+                <div class="section-card">
+                    <span class="section-subtitle">Justificación en Ingeniería</span>
+                    <h3 class="section-title">Inercia Realista y Sensación de Peso</h3>
+                    <div class="text-content">
+                        <p>
+                            Programar un umbral alto de fricción estática inicial y programar una caída a la fricción cinética una vez en movimiento le otorga un "peso" físico real a los objetos dentro del código.
+                        </p>
+                        <p>
+                            Esto previene un desplazamiento flotante, resbaladizo y poco natural que ocurriría si el motor físico utilizara una única desaceleración genérica, mejorando la respuesta del control y la inmersión del jugador.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección B: Simulación Interactiva -->
+            <section class="sim-section">
+                <div class="sim-container-card">
+                    <span class="section-subtitle">Elemento de apoyo</span>
+                    <h3 class="section-title">Cálculo de Umbrales de Fricción</h3>
+                    
+                    <!-- Lienzo de p5.js -->
+                    <div id="sim-container"></div>
+
+                    <!-- Panel de Telemetría -->
+                    <div class="telemetry-panel">
+                        <div class="telemetry-title">Telemetría de Fuerzas del Motor Físico</div>
+                        <div class="telemetry-grid">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Estado Físico</span>
+                                <span id="val-state" class="telemetry-value">Reposo (Fricción Estática)</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Fuerza Aplicada (Fa)</span>
+                                <span id="val-fa" class="telemetry-value">0.0 N</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Fuerza de Fricción (Ff)</span>
+                                <span id="val-ff" class="telemetry-value">0.0 N</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Fuerza Neta (Fn)</span>
+                                <span id="val-fn" class="telemetry-value">0.0 N</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Aceleración (a)</span>
+                                <span id="val-a" class="telemetry-value">0.00 m/s²</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad del Bloque (v)</span>
+                                <span id="val-v" class="telemetry-value">0.00 m/s</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles Interactivos -->
+                    <div class="controls-panel">
+                        <button id="btn-apply-force" class="custom-button">Aplicar Fuerza Constante</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Sidney Rodríguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+        </div>
+    </footer>
+
+    <!-- Script de la simulación -->
+    <script src="../assets/js/sim-friccion.js"></script>
+</body>
+</html>
