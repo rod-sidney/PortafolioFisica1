@@ -11,7 +11,7 @@
     --bg-card-hover: #2A2A2A;
     --text-primary: #FFFFFF;
     --text-secondary: #A0A0A0;
-    --accent-light: #F8D4EE;
+    --accent-light: #F682D5;
     --accent-purple: #AAA2F5;
     --accent-blue: #3042B5;
     
@@ -149,7 +149,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(170, 162, 245, 0.03) 0%, rgba(248, 212, 238, 0.01) 100%);
+    background: linear-gradient(135deg, rgba(170, 162, 245, 0.03) 0%, rgba(246, 130, 213, 0.01) 100%);
     opacity: 0;
     transition: var(--transition-smooth);
 }
@@ -189,7 +189,7 @@ body {
 
 .card:hover .card-number {
     color: var(--accent-light);
-    background-color: rgba(248, 212, 238, 0.1);
+    background-color: rgba(246, 130, 213, 0.1);
 }
 
 .card-arrow {

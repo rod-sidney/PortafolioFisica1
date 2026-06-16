@@ -86,7 +86,7 @@ function draw() {
         trajectory.push(createVector(px, py));
         
         // Dibujar estela
-        stroke(248, 212, 238, 120); // #F8D4EE con opacidad
+        stroke(246, 130, 213, 120); // #F682D5 con opacidad
         strokeWeight(3);
         noFill();
         beginShape();
@@ -97,7 +97,7 @@ function draw() {
         
         // Dibujar proyectil
         noStroke();
-        fill(248, 212, 238); // #F8D4EE
+        fill(246, 130, 213); // #F682D5
         ellipse(projectile.x, projectile.y, 14, 14);
         
         // Calcular componentes de velocidad instantánea
