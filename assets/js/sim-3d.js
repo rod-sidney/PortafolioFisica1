@@ -3,6 +3,9 @@
 
 let t = 0;
 let shooting = false;
+let isWaiting = false;
+let resetTimer = null;
+
 let x0, y0;
 let v0x = 0;
 let v0y = 0;
@@ -34,6 +37,9 @@ function setup() {
     elVy = document.getElementById('val-vy');
     
     resetSim();
+    
+    // Iniciar el primer disparo automático después de 1 segundo
+    resetTimer = setTimeout(autoFire, 1000);
 }
 
 function draw() {
@@ -49,8 +55,8 @@ function draw() {
     fill(48, 66, 181);
     arc(x0, y0, 30, 30, PI, TWO_PI);
     
-    // Si no está disparando, mostrar guía apuntando al ratón
-    if (!shooting) {
+    // Si no está disparando y no está esperando el reinicio automático, mostrar guía al ratón
+    if (!shooting && !isWaiting) {
         let angle = atan2(mouseY - y0, mouseX - x0);
         // Constreñir ángulo al cuadrante superior derecho (disparo hacia adelante/arriba)
         angle = constrain(angle, -PI/2, 0);
@@ -71,7 +77,32 @@ function draw() {
         text("Haz clic dentro del área para disparar en dirección al cursor", width / 2, 30);
     }
     
-    // Física y renderizado durante el disparo
+    // Si estamos en período de espera (temporizador de 10s activo)
+    if (isWaiting) {
+        // Redibujar la trayectoria final e intacta
+        stroke(26, 130, 213, 120); // #F682D5 con opacidad
+        strokeWeight(3);
+        noFill();
+        beginShape();
+        for (let pos of trajectory) {
+            vertex(pos.x, pos.y);
+        }
+        endShape();
+        
+        // Redibujar proyectil en su posición final
+        noStroke();
+        fill(246, 130, 213); // #F682D5
+        ellipse(projectile.x, projectile.y, 14, 14);
+        
+        // Texto del temporizador en pantalla
+        fill(160);
+        noStroke();
+        textSize(13);
+        textAlign(CENTER);
+        text("Trayectoria completada. Reiniciando simulación en unos segundos...", width / 2, 30);
+    }
+    
+    // Física y renderizado durante el disparo activo
     if (shooting) {
         t += 0.4; // Incremento de tiempo
         
@@ -114,18 +145,30 @@ function draw() {
         // Detener simulación al chocar con el suelo o salir del canvas
         if (py >= y0 || px > width || py < -1000) {
             shooting = false;
+            isWaiting = true;
+            
+            // Iniciar temporizador de 10 segundos para reiniciar y volver a disparar de forma automática
+            if (resetTimer) clearTimeout(resetTimer);
+            resetTimer = setTimeout(() => {
+                autoFire();
+            }, 10000);
         }
     }
 }
 
 function mousePressed() {
     // Verificar si el clic fue dentro del canvas
-    if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height && !shooting) {
+    if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
         let dx = mouseX - x0;
         let dy = y0 - mouseY;
         
         // Solo permitir disparar si el vector apunta hacia la derecha y arriba
         if (dx > 5 && dy > 5) {
+            // Cancelar cualquier temporizador activo al disparar manualmente
+            if (resetTimer) {
+                clearTimeout(resetTimer);
+            }
+            
             // Factor de escala para convertir distancia en velocidad
             let speedFactor = 0.07;
             v0x = dx * speedFactor;
@@ -141,12 +184,29 @@ function mousePressed() {
             t = 0;
             trajectory = [];
             shooting = true;
+            isWaiting = false;
         }
     }
 }
 
+// Función para lanzar disparos automáticos continuos
+function autoFire() {
+    if (resetTimer) clearTimeout(resetTimer);
+    
+    // Parámetros de disparo predeterminados para una trayectoria óptima visible
+    v0x = random(7, 11);
+    v0y = random(9, 14);
+    
+    t = 0;
+    trajectory = [];
+    shooting = true;
+    isWaiting = false;
+}
+
 function resetSim() {
+    if (resetTimer) clearTimeout(resetTimer);
     shooting = false;
+    isWaiting = false;
     t = 0;
     trajectory = [];
     
@@ -167,5 +227,8 @@ function windowResized() {
         x0 = 50;
         y0 = height - 50;
         resetSim();
+        
+        // Volver a iniciar bucle automático
+        resetTimer = setTimeout(autoFire, 1000);
     }
 }
