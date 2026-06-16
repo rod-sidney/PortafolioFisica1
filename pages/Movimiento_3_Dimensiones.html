@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movimiento en 3 Dimensiones | Portafolio Física I</title>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Librería p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-container">
+            <span class="nav-institution">Universidad CENFOTEC</span>
+            <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Navegación de retorno -->
+        <a href="../index.html" class="btn-back">
+            <span>&larr;</span> Volver al Inicio
+        </a>
+
+        <!-- Encabezado del Tema -->
+        <header class="hero" style="margin-bottom: 3rem;">
+            <div class="hero-content">
+                <span class="section-subtitle" style="color: var(--accent-purple);">Módulo Cinemática</span>
+                <h1 class="hero-title" style="font-size: 3rem;">Movimiento en 3 Dimensiones</h1>
+                <p class="hero-description">Análisis de trayectorias espaciales complejas descompuestas en componentes vectoriales independientes.</p>
+            </div>
+        </header>
+
+        <!-- Contenedor en dos columnas (Teoría y Simulación) -->
+        <div class="subpage-layout">
+            <!-- Sección A: Teoría y Aplicación en Software -->
+            <section class="theory-section">
+                <!-- Caso Específico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Caso Específico</span>
+                    <h3 class="section-title">Algoritmo de renderizado de la trayectoria parabólica de un proyectil en un entorno 3D</h3>
+                    <div class="text-content">
+                        <p>
+                            En el desarrollo de motores gráficos o videojuegos, calcular cómo se mueve un proyectil (como una flecha o una bala de cañón) en un espacio tridimensional requiere descomponer su movimiento.
+                        </p>
+                        <p>
+                            Horizontalmente (en los ejes <strong>X</strong> y <strong>Z</strong>), el objeto avanza a una velocidad constante porque no hay fuerzas que lo frenen (ignorando la resistencia del aire). Sin embargo, verticalmente (eje <strong>Y</strong>), la gravedad ejerce una fuerza constante hacia abajo, haciendo que el objeto suba cada vez más lento, alcance una altura máxima y luego caiga acelerando.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concepto Físico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Concepto Físico Aplicado</span>
+                    <h3 class="section-title">Descomposición del Movimiento (MRU + MRUA)</h3>
+                    <div class="text-content">
+                        <p>
+                            La física nos permite modelar esta trayectoria separando las ecuaciones espaciales independientes en cada eje. Representamos el desplazamiento horizontal mediante el <strong>Movimiento Rectilíneo Uniforme (MRU)</strong> y el desplazamiento vertical bajo el efecto gravitatorio mediante el <strong>Movimiento Rectilíneo Uniformemente Acelerado (MRUA)</strong>:
+                        </p>
+                    </div>
+
+                    <!-- Ecuaciones destacadas -->
+                    <div class="equations-container">
+                        <div class="equation-item">
+                            <span class="equation-label">Componente X (MRU)</span>
+                            <span class="equation-math">x(t) = x<sub>0</sub> + V<sub>0x</sub>t</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Componente Z (MRU)</span>
+                            <span class="equation-math">z(t) = z<sub>0</sub> + V<sub>0z</sub>t</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Componente Y (MRUA / Caída Libre)</span>
+                            <span class="equation-math">y(t) = y<sub>0</sub> + V<sub>0y</sub>t - &frac12;gt<sup>2</sup></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Justificación -->
+                <div class="section-card">
+                    <span class="section-subtitle">Justificación en Ingeniería</span>
+                    <h3 class="section-title">Precisión Dinámica vs Animaciones Predefinidas</h3>
+                    <div class="text-content">
+                        <p>
+                            En lugar de animar un arco predefinido cuadro por cuadro (que se rompe si cambia el terreno, la posición de la cámara o la fuerza de disparo), programar estas ecuaciones paramétricas permite al motor lógico calcular matemáticamente y dibujar la posición exacta del proyectil de forma dinámica en tiempo real.
+                        </p>
+                        <p>
+                            Esto asegura una <strong>precisión absoluta</strong> en las colisiones físicas sin importar el ángulo de disparo inicial, el viento o las variaciones del entorno, optimizando además el consumo de memoria al no requerir recursos gráficos pregrabados.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección B: Simulación Interactiva -->
+            <section class="sim-wrapper">
+                <div class="sim-container-card">
+                    <span class="section-subtitle">Interactividad</span>
+                    <h3 class="section-title" style="font-size: 1.4rem; margin-bottom: 1rem;">Simulación Bidimensional Proyectada</h3>
+                    
+                    <!-- Lienzo de p5.js -->
+                    <div id="sim-container"></div>
+
+                    <!-- Panel de Telemetría -->
+                    <div class="telemetry-panel">
+                        <div class="telemetry-title">Telemetría en Tiempo Real</div>
+                        <div class="telemetry-grid">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Tiempo (t)</span>
+                                <span id="val-t" class="telemetry-value">0.00 s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Posición X (Distancia)</span>
+                                <span id="val-x" class="telemetry-value">0.0 m</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Posición Y (Altura)</span>
+                                <span id="val-y" class="telemetry-value">0.0 m</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad V<sub>x</sub></span>
+                                <span id="val-vx" class="telemetry-value">0.0 m/s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad V<sub>y</sub></span>
+                                <span id="val-vy" class="telemetry-value">0.0 m/s</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles -->
+                    <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end;">
+                        <button onclick="resetSim()" class="btn-back" style="margin-bottom: 0; padding: 0.5rem 1rem; border-color: rgba(170, 162, 245, 0.4);">
+                            Reiniciar Simulación
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Sidney Rodriguez &bull; Escuela de Ingeniería del Software &bull; Universidad CENFOTEC</p>
+        </div>
+    </footer>
+
+    <!-- Script de la simulación -->
+    <script src="../assets/js/sim-3d.js"></script>
+</body>
+</html>
