@@ -1,4 +1,4 @@
-# Portafolio de Física I - Aplicaciones en Ingeniería del Software
+# Portafolio de Física I
 
 Este repositorio contiene un portafolio web interactivo desarrollado como proyecto para el curso de Física I en la Universidad Cenfotec, como parte del Bachillerato en Ingeniería del Software.
 
