@@ -7,14 +7,15 @@ const m2 = 15; // Masa del bloque (kg)
 const v1_init = 6.0;  // Velocidad inicial del proyectil (m/s)
 const v2_init = 1.5;  // Velocidad inicial del bloque (m/s)
 const totalMass = m1 + m2; // Masa total = 20 kg
+const frictionDecel = 0.4; // Desaceleración por fricción del suelo (m/s^2)
 
 // Cálculo teórico pre-impacto
 const p_init = m1 * v1_init + m2 * v2_init; // Momento total inicial = 5*6 + 15*1.5 = 52.5 kg*m/s
-const v_final = p_init / totalMass; // Velocidad final = 52.5 / 20 = 2.625 m/s
+const v_final = p_init / totalMass; // Velocidad final en el impacto = 52.5 / 20 = 2.625 m/s
 
 const ke_init = 0.5 * m1 * v1_init * v1_init + 0.5 * m2 * v2_init * v2_init; // Ki = 106.875 J
-const ke_final = 0.5 * totalMass * v_final * v_final; // Kf = 68.906 J
-const ke_lost = ke_init - ke_final; // Disipación = 37.969 J
+const ke_final_theory = 0.5 * totalMass * v_final * v_final; // Kf teórica en el impacto = 68.906 J
+const ke_lost_theory = ke_init - ke_final_theory; // Disipación por deformación inicial = 37.969 J
 
 // Variables de estado de la simulación
 let x1, x2;
@@ -73,7 +74,7 @@ function draw() {
     let dt = min(0.03, deltaTime / 1000.0);
     let floorY = height - 60;
     
-    // --- 1. LÓGICA DE MOVIMIENTO Y COLISIÓN ---
+    // --- 1. LÓGICA DE MOVIMIENTO Y COLISIÓN CON FRICCIÓN ---
     if (isRunning) {
         if (!hasCollided) {
             // Movimiento independiente pre-impacto
@@ -89,14 +90,17 @@ function draw() {
                 x1 = x2 - w1; 
             }
         } else {
-            // Movimiento unificado post-impacto
+            // Movimiento unificado post-impacto desacelerando por fricción
+            v2 = Math.max(0, v2 - frictionDecel * dt);
+            v1 = v2;
+            
             x2 += v2 * scalePixelsPerMeter * dt;
             x1 = x2 - w1; // El proyectil queda "incrustado" en la parte trasera del bloque
         }
     }
     
-    // Bucle envolvente de pantalla para que no se pierdan
-    if (x2 > width + 50) {
+    // Bucle envolvente de pantalla solo si siguen en movimiento
+    if (x2 > width + 50 && v2 > 0) {
         // Reiniciar posiciones al salir
         x1 = -100;
         x2 = x1 + 200;
@@ -122,7 +126,6 @@ function draw() {
     // Dibujar el Proyectil (m1 = 5 kg)
     let y1 = floorY - h1;
     if (hasCollided) {
-        // Si chocaron, dibujar el proyectil acoplado (se pinta de rosa #F682D5)
         fill(246, 130, 213);
         rect(x1, y1, w1, h1, 4);
         
@@ -131,7 +134,6 @@ function draw() {
         strokeWeight(2);
         line(x2, y1, x2, floorY);
     } else {
-        // Antes del impacto
         fill(246, 130, 213); // #F682D5
         rect(x1, y1, w1, h1, 4);
     }
@@ -144,16 +146,14 @@ function draw() {
     text("5 kg", x1 + w1 / 2, y1 + h1 / 2);
     text("15 kg", x2 + w2 / 2, y2 + h2 / 2);
     
-    // --- 3. DIBUJAR VECTORES DE VELOCIDAD ---
+    // --- 3. DIBUJAR VECTORES DE VELOCIDAD EN TIEMPO REAL ---
     if (isRunning) {
         if (!hasCollided) {
-            // Vector proyectil (v1 = 6.0)
             drawVelocityVector(x1 + w1 / 2, y1 - 15, v1 * 8, color(246, 130, 213));
-            // Vector bloque (v2 = 1.5)
             drawVelocityVector(x2 + w2 / 2, y2 - 15, v2 * 8, color(170, 162, 245));
         } else {
-            // Vector unificado (vf = 2.625)
-            drawVelocityVector(x2 + w2 / 2, y2 - 15, v_final * 8, color(255, 250, 163)); // Amarillo
+            // El vector amarillo decrece a medida que los bloques se frenan
+            drawVelocityVector(x2 + w2 / 2, y2 - 15, v2 * 8, color(255, 250, 163));
         }
     }
     
@@ -162,7 +162,7 @@ function draw() {
 }
 
 function drawVelocityVector(x, y, len, col) {
-    if (len <= 0) return;
+    if (len <= 0.1) return;
     stroke(col);
     strokeWeight(2);
     line(x, y, x + len, y);
@@ -175,18 +175,27 @@ function drawVelocityVector(x, y, len, col) {
 function updateTelemetry() {
     let stateText = "Listo para iniciar";
     if (isRunning) {
-        stateText = hasCollided ? "Post-Colisión (Unificados)" : "Pre-Colisión (Desplazamiento)";
+        if (hasCollided) {
+            stateText = v2 > 0 ? "Frenado por Fricción del Suelo" : "Detenido por Completo";
+        } else {
+            stateText = "Pre-Colisión (Desplazamiento)";
+        }
     }
     
     if (elState) elState.innerText = stateText;
     
     if (hasCollided) {
-        if (elV1) elV1.innerText = v_final.toFixed(3) + " m/s";
-        if (elV2) elV2.innerText = v_final.toFixed(3) + " m/s";
-        if (elVf) elVf.innerText = v_final.toFixed(3) + " m/s";
+        if (elV1) elV1.innerText = v1.toFixed(3) + " m/s";
+        if (elV2) elV2.innerText = v2.toFixed(3) + " m/s";
+        if (elVf) elVf.innerText = v_final.toFixed(3) + " m/s"; // Velocidad inicial de impacto teórica
+        
+        // La energía cinética disminuye a medida que los bloques frenan
+        let currentKe = 0.5 * totalMass * v2 * v2;
+        let currentKeLost = ke_init - currentKe;
+        
         if (elKi) elKi.innerText = ke_init.toFixed(3) + " J";
-        if (elKf) elKf.innerText = ke_final.toFixed(3) + " J";
-        if (elKlost) elKlost.innerText = ke_lost.toFixed(3) + " J (Disipada)";
+        if (elKf) elKf.innerText = currentKe.toFixed(3) + " J";
+        if (elKlost) elKlost.innerText = currentKeLost.toFixed(3) + " J (Calor + Trabajo de Fricción)";
     } else {
         if (elV1) elV1.innerText = v1.toFixed(1) + " m/s";
         if (elV2) elV2.innerText = v2.toFixed(1) + " m/s";
