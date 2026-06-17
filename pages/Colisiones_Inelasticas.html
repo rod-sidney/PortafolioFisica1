@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colisiones Inelásticas | Portafolio Física I</title>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Librería p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <!-- MathJax para renderizado matemático premium -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-container">
+            <span class="nav-institution">Universidad CENFOTEC</span>
+            <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Navegación de retorno -->
+        <a href="../index.html" class="btn-back">
+            <span>&larr;</span> Volver al Inicio
+        </a>
+
+        <!-- Encabezado del Tema -->
+        <header class="hero">
+            <div class="hero-content">
+                <span class="section-subtitle">Módulo Leyes de Conservación</span>
+                <h1 class="hero-title">Colisiones Inelásticas</h1>
+                <p class="hero-description">Análisis de colisiones plásticas donde los cuerpos quedan acoplados, utilizado para optimizar la fusión de subsistemas y prevenir bugs de colisión.</p>
+            </div>
+        </header>
+
+        <!-- Contenedor de una sola columna -->
+        <div class="subpage-layout">
+            <!-- Sección A: Teoría y Caso Específico -->
+            <section class="theory-section">
+                <!-- Caso Específico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Caso Específico</span>
+                    <h3 class="section-title">Mecánica de "fusión" en simulaciones cuando dos subsistemas chocan y quedan unidos</h3>
+                    <div class="text-content">
+                        <p>
+                            Cuando dos objetos chocan en un videojuego y deben quedar pegados (por ejemplo, una flecha clavándose en una caja en movimiento), los motores físicos a veces se confunden. Si intentan calcular el impacto empujándose mutuamente mientras el código los obliga a estar juntos, los objetos empiezan a temblar violentamente (un bug conocido como <em>clipping</em> o solapamiento geométrico infinito).
+                        </p>
+                        <p>
+                            Para solucionarlo, tratamos el choque como una colisión perfectamente inelástica: matemáticamente borramos los dos objetos originales y creamos uno nuevo cuya masa es la suma de ambos, moviéndose a una velocidad perfectamente calculada.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concepto Físico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Concepto Físico Aplicado</span>
+                    <h3 class="section-title">Colisión 100% inelástica (plástica)</h3>
+                    <div class="text-content">
+                        <p>
+                            En una colisión perfectamente inelástica, la energía cinética final es menor a la inicial (\(K_f < K_i\)) debido a la disipación por deformación y calor. Sin embargo, la cantidad de movimiento (momento lineal) del sistema aislado se conserva perfectamente:
+                        </p>
+                    </div>
+
+                    <!-- Ecuaciones destacadas -->
+                    <div class="equations-container">
+                        <div class="equation-item">
+                            <span class="equation-label">Conservación del Momento</span>
+                            <span class="equation-math">$$\vec{P}_{i} = \vec{P}_{f}$$</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Velocidad Final Acoplada</span>
+                            <span class="equation-math">$$m_1 V_{1i} + m_2 V_{2i} = (m_1 + m_2)V_f$$</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Justificación -->
+                <div class="section-card">
+                    <span class="section-subtitle">Justificación en Ingeniería</span>
+                    <h3 class="section-title">Prevención de bugs físicos y repulsión infinita</h3>
+                    <div class="text-content">
+                        <p>
+                            Previene severos bugs físicos de colisión y repulsión geométrica infinita. Al aplicar esta ley de conservación, el código fusiona ambas masas en una sola entidad lógica en la memoria RAM y le asigna un vector de velocidad final exacto, manteniendo la integridad del sistema cerrado y ofreciendo una visualización y rendimiento estables.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección B: Simulación Interactiva -->
+            <section class="sim-section">
+                <div class="sim-container-card">
+                    <span class="section-subtitle">Elemento de apoyo</span>
+                    <h3 class="section-title">Simulación de Colisión y Acoplamiento Lineal</h3>
+                    
+                    <!-- Lienzo de p5.js -->
+                    <div id="sim-container"></div>
+
+                    <!-- Panel de Telemetría -->
+                    <div class="telemetry-panel">
+                        <div class="telemetry-title">Telemetría del Choque Inelástico</div>
+                        <div class="telemetry-grid">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Estado Físico</span>
+                                <span id="val-state" class="telemetry-value">Listo para iniciar</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad Proyectil (5kg)</span>
+                                <span id="val-v1" class="telemetry-value">6.0 m/s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad Bloque (15kg)</span>
+                                <span id="val-v2" class="telemetry-value">1.5 m/s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad Conjunta (Vf)</span>
+                                <span id="val-vf" class="telemetry-value">Calculando...</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Energía Cinética Inicial</span>
+                                <span id="val-ki" class="telemetry-value">106.875 J</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Energía Cinética Final</span>
+                                <span id="val-kf" class="telemetry-value">Calculando...</span>
+                            </div>
+                            <div class="telemetry-item" style="grid-column: span 2;">
+                                <span class="telemetry-label">Energía Perdida (Disipación)</span>
+                                <span id="val-klost" class="telemetry-value">Calculando...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles Interactivos -->
+                    <div class="controls-panel">
+                        <div class="button-group">
+                            <button id="btn-start" class="custom-button">Simular Colisión</button>
+                            <button id="btn-reset" class="custom-button">Reiniciar</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Sidney Rodríguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+        </div>
+    </footer>
+
+    <!-- Script de la simulación -->
+    <script src="../assets/js/sim-colisiones.js"></script>
+</body>
+</html>
