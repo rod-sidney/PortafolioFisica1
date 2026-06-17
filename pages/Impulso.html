@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impulso y Cantidad de Movimiento | Portafolio Física I</title>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Librería p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <!-- MathJax para renderizado matemático premium -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-container">
+            <span class="nav-institution">Universidad CENFOTEC</span>
+            <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Navegación de retorno -->
+        <a href="../index.html" class="btn-back">
+            <span>&larr;</span> Volver al Inicio
+        </a>
+
+        <!-- Encabezado del Tema -->
+        <header class="hero">
+            <div class="hero-content">
+                <span class="section-subtitle">Módulo Leyes de Conservación</span>
+                <h1 class="hero-title">Impulso</h1>
+                <p class="hero-description">Análisis de la aplicación discreta de fuerzas para propulsores de naves espaciales, dashes evasivos y colisiones estables.</p>
+            </div>
+        </header>
+
+        <!-- Contenedor de una sola columna -->
+        <div class="subpage-layout">
+            <!-- Sección A: Teoría y Caso Específico -->
+            <section class="theory-section">
+                <!-- Caso Específico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Caso Específico</span>
+                    <h3 class="section-title">Implementación de ráfagas de propulsión a chorro (thrusters) en naves espaciales simuladas</h3>
+                    <div class="text-content">
+                        <p>
+                            En los videojuegos espaciales, las naves a veces hacen maniobras evasivas o "dash" utilizando propulsores direccionales que se encienden por solo una fracción de segundo. Si intentamos programar esto sumando aceleración constante, el motor de juego puede volverse inestable debido a lo rápido que ocurre la acción.
+                        </p>
+                        <p>
+                            La física nos da una herramienta mejor: el Impulso. El impulso nos permite calcular exactamente cuánto cambia la velocidad de la nave tras aplicarle una fuerza brutal en un tiempo microscópico, aplicando ese cambio de un solo golpe en el código.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concepto Físico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Concepto Físico Aplicado</span>
+                    <h3 class="section-title">El teorema del Impulso</h3>
+                    <div class="text-content">
+                        <p>
+                            El cambio en la cantidad de movimiento de un cuerpo (\(\Delta \vec{P}\)) es igual al impulso (\(\vec{I}\)) neto que se le imparte. Matemáticamente, el impulso es la integral temporal de la fuerza neta aplicada:
+                        </p>
+                    </div>
+
+                    <!-- Ecuaciones destacadas -->
+                    <div class="equations-container">
+                        <div class="equation-item">
+                            <span class="equation-label">Teorema del Impulso</span>
+                            <span class="equation-math">$$\vec{I} = \Delta\vec{P}$$</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Definición de Impulso</span>
+                            <span class="equation-math">$$\vec{I} = \int \vec{F} \cdot dt \approx F \cdot \Delta t$$</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Justificación -->
+                <div class="section-card">
+                    <span class="section-subtitle">Justificación en Ingeniería</span>
+                    <h3 class="section-title">Estabilidad algorítmica frente al framerate</h3>
+                    <div class="text-content">
+                        <p>
+                            Sumar aceleración a un cuerpo de manera continua en la programación puede fallar en micro-operaciones debido a los saltos y caídas aleatorias de framerate (tasa de refresco).
+                        </p>
+                        <p>
+                            Al usar el Impulso, modificamos el vector de velocidad del objeto de forma instantánea sumándole un valor exacto (\(F \cdot \Delta t / m\)), asegurando una trayectoria físicamente exacta y liberando al motor físico de inestabilidades al procesar colisiones, explosiones y maniobras evasivas abruptas.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección B: Simulación Interactiva -->
+            <section class="sim-section">
+                <div class="sim-container-card">
+                    <span class="section-subtitle">Elemento de apoyo</span>
+                    <h3 class="section-title">Simulación Interactiva: Inercia Espacial y Propulsión</h3>
+                    
+                    <!-- Lienzo de p5.js -->
+                    <div id="sim-container"></div>
+
+                    <!-- Panel de Telemetría -->
+                    <div class="telemetry-panel">
+                        <div class="telemetry-title">Telemetría de Nave e Impulso</div>
+                        <div class="telemetry-grid">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Estado Físico</span>
+                                <span id="val-state" class="telemetry-value">Estática</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad Lineal</span>
+                                <span id="val-v" class="telemetry-value">0.00 m/s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Fuerza Propulsor (F)</span>
+                                <span id="val-f" class="telemetry-value">400 N</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Duración del Impulso</span>
+                                <span id="val-dt" class="telemetry-value">100 ms</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Impulso Impartido (I)</span>
+                                <span id="val-i" class="telemetry-value">40.0 N·s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Cantidad Movimiento (P)</span>
+                                <span id="val-p" class="telemetry-value">0.0 kg·m/s</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles Interactivos -->
+                    <div class="controls-panel">
+                        <div class="button-group">
+                            <button id="btn-thrust" class="custom-button">Activar Thruster (Impulso)</button>
+                            <button id="btn-reset" class="custom-button">Restablecer Nave</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Sidney Rodríguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+        </div>
+    </footer>
+
+    <!-- Script de la simulación -->
+    <script src="../assets/js/sim-impulso.js"></script>
+</body>
+</html>
