@@ -11,8 +11,8 @@ const impulseValue = thrusterForce * thrustDuration; // I = F * dt = 40 N*s
 let shipX, shipY;
 let shipVx = 0; // Velocidad X (m/s)
 let shipVy = 0; // Velocidad Y (m/s)
-let shipAngle = 0; // Ángulo de orientación de la nave (radianes)
-let lastImpulseAngle = 0;
+let shipAngle = 0; // Ángulo de orientación de la nave (radianes) - Fijo a 0 (eje X positivo)
+let lastImpulseAngle = 0; // Ángulo del vector del último impulso
 let isThrusting = false;
 let thrustStartTime = 0;
 
@@ -54,7 +54,7 @@ function setup() {
         });
     }
     
-    updateTelemetry();
+    resetSim();
 }
 
 function draw() {
@@ -73,19 +73,25 @@ function draw() {
     shipX += shipVx * 50 * dt;
     shipY += shipVy * 50 * dt;
     
-    // Límites de pantalla envolventes (wrap-around)
-    if (shipX > width + 20) shipX = -20;
-    else if (shipX < -20) shipX = width + 20;
+    // Límites de pantalla envolventes (wrap-around toroidal)
+    if (shipX > width + 20) {
+        shipX = -20;
+    } else if (shipX < -20) {
+        shipX = width + 20;
+    }
     
-    if (shipY > height + 20) shipY = -20;
-    else if (shipY < -20) shipY = height + 20;
+    if (shipY > height + 20) {
+        shipY = -20;
+    } else if (shipY < -20) {
+        shipY = height + 20;
+    }
     
     // 3. DIBUJAR LA NAVE Y DETALLES
     push();
     translate(shipX, shipY);
     rotate(shipAngle);
     
-    // Estilo de la nave (forma de punta de flecha aerodinámica)
+    // Estilo de la nave (forma de punta de flecha aerodinámica orientada a la derecha)
     noStroke();
     fill(246, 130, 213); // #F682D5
     beginShape();
@@ -114,13 +120,11 @@ function draw() {
     
     // 4. DIBUJAR EL VECTOR DE IMPULSO
     if (isThrusting) {
-        // Dibujar vector de fuerza en la dirección del impulso en color amarillo #FFFAA3
-        // El vector se dibuja desde la popa de la nave
+        // El vector se dibuja desde la parte trasera de la nave apuntando a la derecha
         let vectorLength = 70;
         let startX = shipX - 10 * cos(lastImpulseAngle);
         let startY = shipY - 10 * sin(lastImpulseAngle);
         
-        // El vector apunta en la dirección del empuje (hacia adelante)
         drawVector(startX, startY, vectorLength, lastImpulseAngle, color(255, 250, 163));
         
         // Texto del vector
@@ -136,15 +140,14 @@ function draw() {
 }
 
 function applyThrustImpulse() {
-    // Definir dirección del impulso: elegimos un ángulo aleatorio en el plano
-    let angle = random(0, TWO_PI);
-    shipAngle = angle; // Orientar la nave hacia esa dirección
+    // Dirección fija del impulso hacia el eje X positivo (ángulo = 0 radianes)
+    let angle = 0;
+    shipAngle = angle;
     lastImpulseAngle = angle;
     
     // Aplicar teorema del impulso: Vf = Vi + (F * dt / m)
     let deltaV = impulseValue / shipMass;
-    shipVx += deltaV * cos(angle);
-    shipVy += deltaV * sin(angle);
+    shipVx += deltaV; // Se suma directamente al eje X positivo
     
     // Activar estados visuales
     isThrusting = true;
@@ -189,7 +192,7 @@ function updateTelemetry() {
 function resetSim() {
     shipVx = 0;
     shipVy = 0;
-    shipAngle = 0;
+    shipAngle = 0; // Apuntando a la derecha
     isThrusting = false;
     shipX = width / 2;
     shipY = height / 2;
