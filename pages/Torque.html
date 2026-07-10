@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torque | Portafolio Física I</title>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Librería p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <!-- MathJax para renderizado matemático premium -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-container">
+            <span class="nav-institution">Universidad CENFOTEC</span>
+            <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Navegación de retorno -->
+        <a href="../index.html" class="btn-back">
+            <span>&larr;</span> Volver al Inicio
+        </a>
+
+        <!-- Encabezado del Tema -->
+        <header class="hero" style="margin-bottom: 3rem;">
+            <div class="hero-content">
+                <span class="section-subtitle" style="color: var(--accent-light);">Módulo Cinemática Rotacional</span>
+                <h1 class="hero-title" style="font-size: 3rem;">Torque y Cinemática Inversa</h1>
+                <p class="hero-description">Análisis de la resistencia rotacional en articulaciones biomecánicas para la simulación procedural de personajes 3D al interactuar con cargas físicas.</p>
+            </div>
+        </header>
+
+        <!-- Contenedor de una sola columna -->
+        <div class="subpage-layout">
+            <!-- Sección A: Ejemplo en Ingeniería del Software -->
+            <section class="theory-section">
+                <!-- Caso Específico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Caso Específico</span>
+                    <h3 class="section-title">Motores de animación procedural y resolvedores IK en videojuegos y simulación 3D</h3>
+                    <div class="text-content">
+                        <p>
+                            En el desarrollo de videojuegos modernos y simulaciones en 3D (empleando motores como Unity o Unreal Engine), los personajes interactúan de forma dinámica con objetos del entorno mediante <strong>cinemática inversa (Inverse Kinematics, o IK)</strong> y físicas de muñecos de trapo (ragdolls). En lugar de reproducir una animación pregrabada rígida e idéntica de levantar un objeto, el software debe calcular proceduralmente la postura del brazo.
+                        </p>
+                        <p>
+                            Para que la mano del personaje no "atraviese" el objeto al levantarlo, el resolvedor de física del motor calcula el torque necesario en cada articulación (hombro, codo y muñeca). Si el objeto es muy pesado, la resistencia rotacional en la articulación del codo obliga al resolvedor de IK a ajustar la trayectoria y postura de todo el cuerpo, simulando de manera realista el esfuerzo y la inclinación del personaje según el centro de masa de la carga.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concepto Físico Aplicado -->
+                <div class="section-card">
+                    <span class="section-subtitle">Concepto Físico Aplicado</span>
+                    <h3 class="section-title">El vector de Torque (\(\vec{\tau} = \vec{r} \times \vec{F}\))</h3>
+                    <div class="text-content">
+                        <p>
+                            El torque o momento de una fuerza mide la capacidad de una fuerza aplicada para alterar el estado rotacional de un cuerpo rígido alrededor de un punto de giro. Matemáticamente se define como el producto vectorial entre el vector de posición del punto de aplicación (\(\vec{r}\)) y el vector de fuerza aplicado (\(\vec{F}\)):
+                        </p>
+                    </div>
+
+                    <!-- Ecuaciones destacadas -->
+                    <div class="equations-container">
+                        <div class="equation-item">
+                            <span class="equation-label">Definición Vectorial de Torque</span>
+                            <span class="equation-math">$$\vec{\tau} = \vec{r} \times \vec{F}$$</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Magnitud Escalar del Torque</span>
+                            <span class="equation-math">$$\tau = r \cdot F \cdot \sin(\theta)$$</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Eficiencia Rotacional Máxima</span>
+                            <span class="equation-math">$$\tau_{\text{max}} = r \cdot F \quad (\text{para } \theta = 90^\circ)$$</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Justificación -->
+                <div class="section-card">
+                    <span class="section-subtitle">Justificación en Ingeniería</span>
+                    <h3 class="section-title">Control de postura realista y estabilidad biomecánica</h3>
+                    <div class="text-content">
+                        <p>
+                            Al implementar la ecuación de torque en los resolvedores de articulaciones físicas del personaje, el software evita las animaciones incoherentes de "fuerza infinita" donde un objeto de 100 kg se levanta con la misma velocidad y facilidad que una taza de café.
+                        </p>
+                        <p>
+                            Al asociar la física de torques con los límites de fuerza máxima que puede ejercer cada articulación, el motor limita la velocidad angular del brazo o colapsa el brazo temporalmente si el torque requerido en el codo excede la fuerza límite disponible. Esto simula de manera fluida y adaptativa la fatiga muscular y los límites del esfuerzo del personaje ante cualquier masa.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección B: Elemento de Apoyo (Simulación Interactiva) -->
+            <section class="sim-section">
+                <div class="sim-container-card">
+                    <span class="section-subtitle">Elemento de apoyo</span>
+                    <h3 class="section-title" style="font-size: 1.4rem; margin-bottom: 1rem;">Simulador de Rango de Movimiento (ROM) y Torque</h3>
+                    
+                    <!-- Contenedor del lienzo de p5.js -->
+                    <div id="sim-container"></div>
+
+                    <!-- Panel de Telemetría -->
+                    <div class="telemetry-panel">
+                        <div class="telemetry-title">Telemetría de la Articulación del Codo (Preacher Curl)</div>
+                        <div class="telemetry-grid">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Ángulo de Flexión (&theta;)</span>
+                                <span id="val-angle" class="telemetry-value">45°</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Longitud de Palanca Antebrazo (r)</span>
+                                <span class="telemetry-value">0.35 m</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Fuerza Aplicada Peso (F)</span>
+                                <span id="val-force" class="telemetry-value">100 N</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Torque Resultante en Codo (&tau;)</span>
+                                <span id="val-torque" class="telemetry-value">0.00 N·m</span>
+                            </div>
+                            <div class="telemetry-item" style="grid-column: span 2;">
+                                <span class="telemetry-label">Análisis de Esfuerzo Biomecánico</span>
+                                <span id="val-status" class="telemetry-value" style="font-size: 1.05rem;">Esfuerzo parcial</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles Interactivos -->
+                    <div class="controls-panel">
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span class="slider-label">Ajustar Ángulo de Flexión (&theta;)</span>
+                                <span class="slider-value"><span id="lbl-theta">45</span>°</span>
+                            </div>
+                            <input id="slider-theta" class="custom-slider" type="range" min="0" max="130" step="1" value="45" oninput="document.getElementById('lbl-theta').innerText = this.value">
+                        </div>
+
+                        <div class="button-group">
+                            <button id="btn-reset" class="custom-button">Reiniciar Posición (45°)</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Sidney Rodríguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+        </div>
+    </footer>
+
+    <!-- Script de la simulación -->
+    <script src="../assets/js/sim-torque.js"></script>
+</body>
+</html>
