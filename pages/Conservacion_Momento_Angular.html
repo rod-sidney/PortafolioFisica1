@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conservación del Momento Angular | Portafolio Física I</title>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Librería p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <!-- MathJax para renderizado matemático premium -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-container">
+            <span class="nav-institution">Universidad CENFOTEC</span>
+            <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Navegación de retorno -->
+        <a href="../index.html" class="btn-back">
+            <span>&larr;</span> Volver al Inicio
+        </a>
+
+        <!-- Encabezado del Tema -->
+        <header class="hero" style="margin-bottom: 3rem;">
+            <div class="hero-content">
+                <span class="section-subtitle" style="color: var(--accent-light);">Módulo Leyes de Conservación</span>
+                <h1 class="hero-title" style="font-size: 3rem;">Conservación del Momento Angular</h1>
+                <p class="hero-description">Análisis de la estabilidad rotacional y el control de orientación espacial de satélites mediante la manipulación interna de la inercia rotacional.</p>
+            </div>
+        </header>
+
+        <!-- Contenedor de una sola columna -->
+        <div class="subpage-layout">
+            <!-- Sección A: Ejemplo en Ingeniería del Software -->
+            <section class="theory-section">
+                <!-- Caso Específico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Caso Específico</span>
+                    <h3 class="section-title">Software de control de orientación (actitud) para satélites artificiales por volantes de inercia</h3>
+                    <div class="text-content">
+                        <p>
+                            En el espacio exterior no hay atmósfera, lo que impide el uso de timones o alerones para girar. Aunque los propulsores químicos pueden reorientar una nave, estos consumen combustible limitado. Para que un satélite apunte sus paneles solares al Sol o sus antenas a la Tierra durante años, se utiliza un sistema interno de <strong>volantes de inercia (baterías cinéticas rotacionales)</strong>.
+                        </p>
+                        <p>
+                            Al aplicar las leyes de la física, si el motor eléctrico interno acelera el volante de inercia hacia la derecha (en sentido de las agujas del reloj), el chasis del satélite rotará inmediatamente hacia la izquierda (sentido contrario) para compensar y mantener el momento angular total del sistema equilibrado y constante.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concepto Físico Aplicado -->
+                <div class="section-card">
+                    <span class="section-subtitle">Concepto Físico Aplicado</span>
+                    <h3 class="section-title">Conservación del Momento Angular (\(L_i = L_f\))</h3>
+                    <div class="text-content">
+                        <p>
+                            El momento angular total (\(\vec{L}\)) de un sistema aislado permanece constante en magnitud y dirección si no actúa ningún torque externo neto sobre él. La relación matemática establece que el producto del momento de inercia (\(I\)) y la velocidad angular (\(\omega\)) iniciales es igual a los finales:
+                        </p>
+                    </div>
+
+                    <!-- Ecuaciones destacadas -->
+                    <div class="equations-container">
+                        <div class="equation-item">
+                            <span class="equation-label">Conservación del Momento Angular</span>
+                            <span class="equation-math">$$\vec{L}_i = \vec{L}_f$$</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Relación del Sistema Rotacional</span>
+                            <span class="equation-math">$$I_i \omega_i = I_f \omega_f$$</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Balance del Satélite y Volante</span>
+                            <span class="equation-math">$$I_s \omega_s + I_w \omega_w = 0 \implies \omega_s = -\frac{I_w}{I_s} \omega_w$$</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Justificación -->
+                <div class="section-card">
+                    <span class="section-subtitle">Justificación en Ingeniería</span>
+                    <h3 class="section-title">Precisión y Estabilidad algorítmica sin simulación de partículas</h3>
+                    <div class="text-content">
+                        <p>
+                            En el desarrollo de simuladores espaciales o software de navegación de telemetría de satélites reales, los desarrolladores no pueden simplemente girar el modelo 3D con un comando arbitrario de transformación espacial. Se deben programar bucles de control (como controladores PID) que leen la inercia real del volante de inercia y regulen exactamente su velocidad rotacional.
+                        </p>
+                        <p>
+                            Esto garantiza una precisión milimétrica en la orientación de las antenas, permitiendo que el simulador imite fielmente los movimientos reales del satélite, previniendo oscilaciones y prescindiendo de sistemas de partículas complejos para propulsores que deteriorarían el rendimiento computacional.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección B: Elemento de Apoyo (Simulación Interactiva) -->
+            <section class="sim-section">
+                <div class="sim-container-card">
+                    <span class="section-subtitle">Elemento de apoyo</span>
+                    <h3 class="section-title" style="font-size: 1.4rem; margin-bottom: 1rem;">Simulador de Conservación del Momento Angular</h3>
+                    
+                    <!-- Contenedor del lienzo de p5.js -->
+                    <div id="sim-container"></div>
+
+                    <!-- Panel de Telemetría -->
+                    <div class="telemetry-panel">
+                        <div class="telemetry-title">Telemetría de Orientación y Momento Angular</div>
+                        <div class="telemetry-grid">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Momento Inercia Satélite (I_s)</span>
+                                <span id="val-is" class="telemetry-value">50.0 kg·m²</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Momento Inercia Volante (I_w)</span>
+                                <span id="val-iw" class="telemetry-value">2.00 kg·m²</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad Angular Satélite (&omega;_s)</span>
+                                <span id="val-omega-s" class="telemetry-value">0.000 rad/s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad Angular Volante (&omega;_w)</span>
+                                <span id="val-omega-w" class="telemetry-value">0.000 rad/s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Momento Angular Satélite (L_s)</span>
+                                <span id="val-ls" class="telemetry-value">0.000 N·m·s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Momento Angular Volante (L_w)</span>
+                                <span id="val-lw" class="telemetry-value">0.000 N·m·s</span>
+                            </div>
+                            <div class="telemetry-item" style="grid-column: span 2;">
+                                <span class="telemetry-label">Momento Angular Total del Sistema (L_total)</span>
+                                <span id="val-ltotal" class="telemetry-value" style="font-weight: 700; font-size: 1.25rem;">0.000000 N·m·s</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles Interactivos -->
+                    <div class="controls-panel">
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span class="slider-label">Ajustar Inercia Satélite (I_s)</span>
+                                <span class="slider-value"><span id="lbl-is">50.0</span> kg·m²</span>
+                            </div>
+                            <input id="slider-is" class="custom-slider" type="range" min="20.0" max="100.0" step="1.0" value="50.0" oninput="document.getElementById('lbl-is').innerText = parseFloat(this.value).toFixed(1)">
+                        </div>
+
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span class="slider-label">Ajustar Inercia Volante (I_w)</span>
+                                <span class="slider-value"><span id="lbl-iw">2.00</span> kg·m²</span>
+                            </div>
+                            <input id="slider-iw" class="custom-slider" type="range" min="0.5" max="5.0" step="0.1" value="2.0" oninput="document.getElementById('lbl-iw').innerText = parseFloat(this.value).toFixed(2)">
+                        </div>
+
+                        <div class="button-group">
+                            <button id="btn-accel-left" class="custom-button">Acelerar Volante a la Izquierda (&larr;)</button>
+                            <button id="btn-accel-right" class="custom-button">Acelerar Volante a la Derecha (&rarr;)</button>
+                            <button id="btn-reset" class="custom-button" style="background-color: transparent; border-color: rgba(255,255,255,0.2);">Restablecer</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Sidney Rodríguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+        </div>
+    </footer >
+
+    <!-- Script de la simulación -->
+    <script src="../assets/js/sim-momento.js"></script>
+</body>
+</html>
