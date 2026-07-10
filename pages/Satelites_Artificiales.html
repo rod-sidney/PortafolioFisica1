@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravitación y Órbitas Satelitales | Portafolio Física I</title>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Librería p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <!-- MathJax para renderizado matemático premium -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-container">
+            <span class="nav-institution">Universidad CENFOTEC</span>
+            <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Navegación de retorno -->
+        <a href="../index.html" class="btn-back">
+            <span>&larr;</span> Volver al Inicio
+        </a>
+
+        <!-- Encabezado del Tema -->
+        <header class="hero" style="margin-bottom: 3rem;">
+            <div class="hero-content">
+                <span class="section-subtitle" style="color: var(--accent-light);">Módulo Gravitación</span>
+                <h1 class="hero-title" style="font-size: 3rem;">Gravitación y Órbitas Satelitales</h1>
+                <p class="hero-description">Análisis de la mecánica orbital planetaria, la ley de gravitación universal de Newton y el cálculo de la velocidad orbital en simulación física interactiva.</p>
+            </div>
+        </header>
+
+        <!-- Contenedor de una sola columna -->
+        <div class="subpage-layout">
+            <!-- Sección A: Ejemplo en Ingeniería del Software -->
+            <section class="theory-section">
+                <!-- Caso Específico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Caso Específico</span>
+                    <h3 class="section-title">Programación de mecánicas orbitales emergentes en simuladores de exploración planetaria</h3>
+                    <div class="text-content">
+                        <p>
+                            En el desarrollo de simuladores de física espacial y juegos de exploración aeroespacial (como <i>Kerbal Space Program</i> o <i>Outer Wilds</i>), la navegación no se basa en animaciones precalculadas que describen rutas circulares fijas. En su lugar, el motor del software simula las fuerzas dinámicas e independientes de gravedad de los cuerpos masivos, permitiendo una jugabilidad realista y emergente.
+                        </p>
+                        <p>
+                            Para que un satélite artificial permanezca en órbita alrededor de un planeta, debe poseer una velocidad lateral exacta. A medida que la fuerza de gravedad jala al satélite verticalmente hacia el núcleo del planeta, la curvatura del planeta "cae" al mismo ritmo que la trayectoria del satélite, resultando en una caída libre perpetua. Si la velocidad desciende, el satélite impacta el planeta; si es excesiva, se desliga de su atracción gravitatoria.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concepto Físico Aplicado -->
+                <div class="section-card">
+                    <span class="section-subtitle">Concepto Físico Aplicado</span>
+                    <h3 class="section-title">La Ley de Gravitación Universal de Newton</h3>
+                    <div class="text-content">
+                        <p>
+                            Cualquier par de masas en el universo se atraen mutuamente con una fuerza que es directamente proporcional al producto de sus masas e inversamente proporcional al cuadrado de la distancia que separa sus centros. En una órbita circular estable, la gravedad actúa como la fuerza centrípeta del sistema:
+                        </p>
+                    </div>
+
+                    <!-- Ecuaciones destacadas -->
+                    <div class="equations-container">
+                        <div class="equation-item">
+                            <span class="equation-label">Fuerza Gravitacional Universal</span>
+                            <span class="equation-math">$$F = G \frac{m_1 m_2}{r^2}$$</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Balance de Fuerzas (Gravedad y Centrípeta)</span>
+                            <span class="equation-math">$$G \frac{M \cdot m}{r^2} = m \frac{v^2}{r}$$</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Velocidad Orbital Requerida</span>
+                            <span class="equation-math">$$v = \sqrt{\frac{G \cdot M}{r}}$$</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Justificación -->
+                <div class="section-card">
+                    <span class="section-subtitle">Justificación en Ingeniería</span>
+                    <h3 class="section-title">Física vectorial en tiempo real y asistencia gravitacional</h3>
+                    <div class="text-content">
+                        <p>
+                            Resolver vectorialmente la Ley de Gravitación de Newton cuadro por cuadro en el motor físico, integrando la fuerza neta en la aceleración y velocidad del satélite, permite que el software reaccione dinámicamente a las acciones del jugador.
+                        </p>
+                        <p>
+                            Al encender los motores del satélite en un eje particular, la órbita se modifica en tiempo real (creando órbitas elípticas, parabólicas o hiperbólicas). Esto también habilita la simulación de maniobras complejas de asistencia gravitatoria (<i>slingshot</i>), en las cuales una sonda aprovecha la gravedad de un cuerpo celeste para acelerar sin gastar combustible, algo que sería imposible de codificar usando simples trayectorias circulares rígidas.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección B: Elemento de Apoyo (Simulación Interactiva) -->
+            <section class="sim-section">
+                <div class="sim-container-card">
+                    <span class="section-subtitle">Elemento de apoyo</span>
+                    <h3 class="section-title" style="font-size: 1.4rem; margin-bottom: 1rem;">Simulador Dinámico de Gravedad y Órbitas</h3>
+                    
+                    <!-- Contenedor del lienzo de p5.js -->
+                    <div id="sim-container"></div>
+
+                    <!-- Panel de Telemetría -->
+                    <div class="telemetry-panel">
+                        <div class="telemetry-title">Telemetría Orbital del Satélite</div>
+                        <div class="telemetry-grid">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Radio de la Órbita (r)</span>
+                                <span id="val-r" class="telemetry-value">0 km</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad Orbital Actual (v)</span>
+                                <span id="val-v" class="telemetry-value">0.00 km/s</span>
+                            </div>
+                            <div class="telemetry-item" style="grid-column: span 2;">
+                                <span class="telemetry-label">Estado de la Trayectoria</span>
+                                <span id="val-status" class="telemetry-value" style="font-size: 1.05rem;">Estable</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles Interactivos -->
+                    <div class="controls-panel">
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span class="slider-label">Velocidad Tangencial Inicial del Satélite</span>
+                                <span class="slider-value"><span id="lbl-v">88</span> px/s</span>
+                            </div>
+                            <input id="slider-v" class="custom-slider" type="range" min="20" max="150" step="1" value="88" oninput="document.getElementById('lbl-v').innerText = this.value">
+                        </div>
+
+                        <div class="button-group">
+                            <button id="btn-reset" class="custom-button">Reiniciar Simulación</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Sidney Rodríguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+        </div>
+    </footer>
+
+    <!-- Script de la simulación -->
+    <script src="../assets/js/sim-satelite.js"></script>
+</body>
+</html>
