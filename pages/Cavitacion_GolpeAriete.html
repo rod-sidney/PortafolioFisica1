@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmos SCADA para Mantenimiento Predictivo | Portafolio Física I</title>
+    <meta name="description"
+          content="Aplicación de la Ecuación de Continuidad y el fenómeno de golpe de ariete al desarrollo de software SCADA de monitoreo IoT y mantenimiento predictivo en plantas hidroeléctricas.">
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+<body>
+
+<header class="navbar">
+    <div class="navbar-container">
+        <span class="nav-institution">Universidad CENFOTEC</span>
+        <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+    </div>
+</header>
+
+<main class="container">
+
+    <a href="../index.html" class="btn-back">
+        <span>&larr;</span> Volver al Inicio
+    </a>
+
+    <header class="hero" style="margin-bottom: 3rem;">
+        <div class="hero-content">
+            <span class="section-subtitle" style="color: var(--accent-purple);">Módulo Mecánica de fluidos</span>
+            <h1 class="hero-title" style="font-size: 3rem;">Algoritmos SCADA para Mantenimiento Predictivo</h1>
+            <p class="hero-description">Aplicación de la Ecuación de Continuidad y el fenómeno de golpe de ariete al
+                desarrollo de software de monitoreo IoT en plantas hidroeléctricas y redes de acueductos
+                industriales.</p>
+        </div>
+    </header>
+
+    <div class="subpage-layout">
+
+        <!-- ===== SECCIÓN A ===== -->
+        <section class="theory-section">
+
+            <!-- Caso Específico -->
+            <div class="section-card">
+                <span class="section-subtitle">Caso Específico</span>
+                <h2 class="section-title">Software de Monitoreo IoT en Plantas Hidroeléctricas y Redes de
+                    Acueductos</h2>
+                <div class="text-content">
+                    <p>
+                        Los sistemas <strong>SCADA</strong> (<em>Supervisory Control and Data Acquisition</em>) son
+                        plataformas de software industrial que recopilan datos en tiempo real de miles de sensores
+                        distribuidos a lo largo de una red hidráulica: manómetros, caudalímetros, sensores de vibración
+                        en tuberías y transductores de presión diferencial. En plantas hidroeléctricas, estos datos son
+                        críticos para la integridad estructural de las tuberías forzadas que conducen el agua a las
+                        turbinas.
+                    </p>
+                    <p>
+                        El fenómeno más peligroso y difícil de predecir en estas instalaciones es el <strong>golpe de
+                        ariete</strong> (<em>water hammer</em>): una onda de presión extrema que viaja a través del
+                        fluido cuando una válvula se cierra de forma abrupta. La energía cinética del fluido en
+                        movimiento se convierte repentinamente en presión, generando picos que pueden alcanzar <strong>decenas
+                        de veces la presión operativa normal</strong> y destruir cañerías, válvulas y equipos en
+                        milisegundos.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Concepto Físico Aplicado -->
+            <div class="section-card">
+                <span class="section-subtitle">Concepto Físico Aplicado</span>
+                <h2 class="section-title">Ecuación de Continuidad y el Origen del Golpe de Ariete</h2>
+                <div class="text-content">
+                    <p>
+                        La <strong>Ecuación de Continuidad</strong> establece que, para un fluido incompresible en un
+                        conducto cerrado, el caudal volumétrico es constante a lo largo de la tubería. Esto implica que
+                        si el flujo se interrumpe en un punto, la energía cinética almacenada en toda la columna de
+                        fluido en movimiento debe ser absorbida en algún lugar. Ese "lugar" es la pared de la tubería,
+                        mediante un pico de presión extremo.
+                    </p>
+                    <p>
+                        La magnitud del golpe de ariete se puede estimar con la <strong>fórmula de Joukowsky</strong>:
+                        el incremento de presión es directamente proporcional a la velocidad del fluido y a la velocidad
+                        de propagación de la onda de presión en el fluido, que depende a su vez de la elasticidad del
+                        material de la tubería.
+                    </p>
+                </div>
+
+                <div class="equations-container">
+                    <div class="equation-item">
+                        <span class="equation-label">Ecuación de Continuidad</span>
+                        <span class="equation-math scada-eq">\( A_1 \cdot V_1 = A_2 \cdot V_2 = Q \)</span>
+                    </div>
+                    <div class="equation-item">
+                        <span class="equation-label">Golpe de Ariete (Joukowsky)</span>
+                        <span class="equation-math">\( \Delta P = \rho \cdot c \cdot \Delta V \)</span>
+                    </div>
+                    <div class="equation-item">
+                        <span class="equation-label">Velocidad de Onda en el Fluido</span>
+                        <span class="equation-math">\( c = \sqrt{\dfrac{K/\rho}{1 + (K \cdot D)/(E \cdot e)}} \)</span>
+                    </div>
+                    <div class="equation-item">
+                        <span class="equation-label">Presión máxima de impacto</span>
+                        <span class="equation-math">\( P_{\max} = P_{\text{op}} + \rho \cdot c \cdot V_0 \)</span>
+                    </div>
+                </div>
+
+                <div class="text-content">
+                    <p>
+                        Donde <strong>Q</strong> es el caudal volumétrico (m³/s), <strong>&rho;</strong> la densidad del
+                        fluido, <strong>c</strong> la velocidad de propagación de la onda de presión en la tubería,
+                        <strong>K</strong> el módulo de elasticidad volumétrico del fluido, <strong>D</strong> el
+                        diámetro interior, <strong>E</strong> el módulo de Young del material de la tubería y
+                        <strong>e</strong> el espesor de pared. La velocidad de onda en agua dentro de acero oscila
+                        entre 900 y 1400 m/s.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Justificación -->
+            <div class="section-card">
+                <span class="section-subtitle">Justificación en Ingeniería</span>
+                <h2 class="section-title">Detección Automática y Protocolo de Apagado de Emergencia</h2>
+                <div class="text-content">
+                    <p>
+                        El algoritmo SCADA analiza el flujo de datos de los sensores de presión en tiempo real, buscando
+                        <strong>micro-picos de presión</strong> cuya forma matemática característica es una función
+                        escalón amortiguada. El software implementa un <em>sliding window detector</em>: una ventana
+                        temporal de muestras que calcula la derivada de la presión (dP/dt). Si esta derivada supera un
+                        umbral crítico configurado por el ingeniero, el sistema clasifica el evento como un golpe de
+                        ariete incipiente.
+                    </p>
+                    <p>
+                        Ante esta detección, el SCADA activa un <strong>protocolo de apagado de emergencia</strong>
+                        completamente automatizado: envía señales de control a las electroválvulas para cerrarlas <em>gradualmente</em>
+                        (no abruptamente, lo que agravaría el evento), alerta al operador humano mediante notificaciones
+                        prioritarias, y registra el evento en la base de datos para análisis posterior de mantenimiento
+                        predictivo. Todo este ciclo de detección-reacción ocurre en <strong>milisegundos</strong>, antes
+                        de que la onda de presión pueda propagar daño estructural.
+                    </p>
+                    <p>
+                        La clave del éxito del algoritmo es conocer con precisión la ecuación de Continuidad de la
+                        instalación: al saber el caudal esperado Q en condiciones normales y las áreas de sección A de
+                        cada tramo, el sistema puede calcular la velocidad V en cada punto y estimar el &Delta;P máximo
+                        ante un cierre de válvula, <strong>anticipando el riesgo antes de que el evento ocurra</strong>.
+                    </p>
+                </div>
+
+                <!-- Pipeline del algoritmo SCADA -->
+                <div class="scada-pipeline">
+                    <div class="scada-step">
+                        <span class="scada-step-num">01</span>
+                        <span class="scada-step-label">Sensores IoT</span>
+                        <span class="scada-step-desc">Lectura de P, V y Q a &gt;1 kHz</span>
+                    </div>
+                    <div class="scada-step-arrow">→</div>
+                    <div class="scada-step">
+                        <span class="scada-step-num">02</span>
+                        <span class="scada-step-label">Análisis dP/dt</span>
+                        <span class="scada-step-desc">Sliding window detector</span>
+                    </div>
+                    <div class="scada-step-arrow">→</div>
+                    <div class="scada-step">
+                        <span class="scada-step-num">03</span>
+                        <span class="scada-step-label">Clasificación</span>
+                        <span class="scada-step-desc">Umbral de golpe de ariete</span>
+                    </div>
+                    <div class="scada-step-arrow">→</div>
+                    <div class="scada-step">
+                        <span class="scada-step-num">04</span>
+                        <span class="scada-step-label">Apagado Gradual</span>
+                        <span class="scada-step-desc">Cierre lento de electroválvulas</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN B: Contenido Multimedia ===== -->
+        <section class="sim-section">
+            <div class="media-container-card">
+                <span class="section-subtitle">Elemento de Apoyo</span>
+                <h2 class="section-title"
+                    style="font-size: 1.4rem; margin-bottom: 1rem; align-self: flex-start; width: 100%;">Demostración:
+                    Análisis de Transitorios y Golpe de Ariete</h2>
+
+                <!-- Contenedor de video responsivo -->
+                <div class="video-wrapper"
+                     style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;">
+                    <iframe
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid rgba(48, 66, 181, 0.5);"
+                            src="https://www.youtube.com/embed/_jv0rx6QGO8"
+                            title="Demostración de Golpe de Ariete en Tuberías"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+
+                <p class="video-caption" style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">
+                    Animación técnica que ilustra el fenómeno del golpe de ariete (water hammer). Se observa cómo la
+                    interrupción abrupta del caudal en un sistema cerrado genera una onda de choque por presión extrema,
+                    justiciando la necesidad de algoritmos de monitoreo predictivo SCADA para automatizar paradas de
+                    emergencia en las bombas.
+                </p>
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+        <p>&copy; 2026 Sidney Rodríguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+    </div>
+</footer>
+
+</body>
+</html>

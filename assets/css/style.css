@@ -1267,3 +1267,165 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* ============================================================
+   SCADA / Golpe de Ariete
+   Página: Algoritmos SCADA para Mantenimiento Predictivo
+   ============================================================ */
+
+/* Ecuación de Continuidad resaltada */
+.scada-eq {
+    color: var(--accent-yellow);
+    font-size: 1.05rem;
+}
+
+/* Pipeline de pasos del algoritmo SCADA */
+.scada-pipeline {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.75rem;
+    flex-wrap: wrap;
+}
+
+.scada-step {
+    background-color: rgba(48, 66, 181, 0.1);
+    border: 1px solid rgba(48, 66, 181, 0.3);
+    border-radius: 10px;
+    padding: 1rem 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    text-align: center;
+    flex: 1;
+    min-width: 110px;
+    transition: var(--transition-smooth);
+}
+
+.scada-step:hover {
+    background-color: rgba(48, 66, 181, 0.18);
+    border-color: var(--accent-purple);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(48, 66, 181, 0.15);
+}
+
+.scada-step-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--accent-light);
+    letter-spacing: 0.06em;
+}
+
+.scada-step-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+}
+
+.scada-step-desc {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+    line-height: 1.3;
+}
+
+.scada-step-arrow {
+    color: rgba(170, 162, 245, 0.45);
+    font-size: 1.2rem;
+    font-weight: 300;
+    flex-shrink: 0;
+}
+
+/* Placeholder de video SCADA */
+.scada-video-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1117 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    border-radius: 8px;
+    border: 1px solid rgba(246, 130, 213, 0.2);
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+}
+
+.scada-video-placeholder:hover {
+    border-color: rgba(246, 130, 213, 0.5);
+    background: linear-gradient(135deg, #111622 0%, #1a2030 50%, #111622 100%);
+}
+
+/* Anillo de pulso animado */
+.scada-placeholder-pulse {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 1px solid rgba(246, 130, 213, 0.15);
+    animation: scada-pulse 2.8s ease-out infinite;
+    pointer-events: none;
+}
+
+@keyframes scada-pulse {
+    0%   { transform: scale(0.6); opacity: 0.7; }
+    100% { transform: scale(2.2); opacity: 0; }
+}
+
+.scada-placeholder-icon {
+    font-size: 2.2rem;
+    color: var(--accent-light);
+    opacity: 0.55;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+    transition: var(--transition-smooth);
+}
+
+.scada-video-placeholder:hover .scada-placeholder-icon {
+    opacity: 0.9;
+    transform: scale(1.1);
+}
+
+.scada-placeholder-text {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    max-width: 400px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+}
+
+.scada-placeholder-hint {
+    font-size: 0.72rem;
+    color: rgba(246, 130, 213, 0.4);
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+    .scada-pipeline {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .scada-step-arrow {
+        transform: rotate(90deg);
+        align-self: center;
+    }
+}
