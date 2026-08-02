@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software BIM de Mapeo de Estrés Estructural | Portafolio Física I</title>
+    <meta name="description" content="Aplicación de la presión hidrostática al desarrollo de herramientas BIM 3D para evaluación estructural de muros de contención y represas.">
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Librería p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <!-- MathJax para renderizado de ecuaciones -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <span class="nav-institution">Universidad CENFOTEC</span>
+            <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Navegación de retorno -->
+        <a href="../index.html" class="btn-back">
+            <span>&larr;</span> Volver al Inicio
+        </a>
+
+        <!-- Encabezado del Tema -->
+        <header class="hero" style="margin-bottom: 3rem;">
+            <div class="hero-content">
+                <span class="section-subtitle" style="color: var(--accent-purple);">Módulo Fluidos y Presión</span>
+                <h1 class="hero-title" style="font-size: 3rem;">Software BIM de Mapeo de Estrés Estructural</h1>
+                <p class="hero-description">Aplicación de la presión hidrostática al desarrollo de herramientas de modelado 3D para evaluar la distribución de fuerzas en muros de contención y estructuras de retención de fluidos.</p>
+            </div>
+        </header>
+
+        <!-- Layout de una sola columna -->
+        <div class="subpage-layout">
+
+            <!-- ===== SECCIÓN A: Teoría y Aplicación en Software ===== -->
+            <section class="theory-section">
+
+                <!-- Caso Específico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Caso Específico</span>
+                    <h2 class="section-title">Herramienta BIM para Evaluación de Muros de Contención en Represas y Tanques</h2>
+                    <div class="text-content">
+                        <p>
+                            Los softwares de <strong>Building Information Modeling (BIM)</strong> como <em>Autodesk Revit</em> o <em>Bentley Systems</em> permiten a los ingenieros civiles modelar estructuras en 3D con propiedades físicas reales. Para el diseño de represas, tanques industriales y muros de contención submarinos, uno de los módulos críticos es el <strong>análisis de estrés hidrostático</strong>.
+                        </p>
+                        <p>
+                            En lugar de realizar cálculos manuales costosos o construir prototipos físicos, el software recorre automáticamente la <strong>malla poligonal 3D</strong> de la estructura y evalúa la presión del fluido en cada vértice y cara, generando un mapa de calor de estrés estructural que visualiza de forma inmediata las zonas críticas que requieren mayor refuerzo, espesor o materiales de mayor resistencia.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concepto Físico Aplicado -->
+                <div class="section-card">
+                    <span class="section-subtitle">Concepto Físico Aplicado</span>
+                    <h2 class="section-title">Presión Hidrostática: Distribución de Fuerzas en Profundidad</h2>
+                    <div class="text-content">
+                        <p>
+                            La <strong>presión hidrostática</strong> es la presión ejercida por un fluido en reposo sobre cualquier superficie en contacto con él. A diferencia de la presión atmosférica, la presión hidrostática no es uniforme: aumenta linealmente con la profundidad porque la columna de fluido sobre un punto determinado tiene mayor peso cuanto más abajo se encuentre ese punto.
+                        </p>
+                        <p>
+                            Esta relación lineal, combinada con la geometría 3D de la estructura, es lo que el algoritmo BIM resuelve en cada punto de la malla. La presión en la cima del muro es mínima; en la base, máxima.
+                        </p>
+                    </div>
+
+                    <!-- Ecuaciones destacadas -->
+                    <div class="equations-container">
+                        <div class="equation-item">
+                            <span class="equation-label">Presión Hidrostática</span>
+                            <span class="equation-math presion-eq">\( P = \rho \cdot g \cdot h \)</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Fuerza Total sobre el Muro</span>
+                            <span class="equation-math">\( F = \int_0^H \rho g h \cdot w(h)\, dh \)</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Punto de Aplicación de la Fuerza</span>
+                            <span class="equation-math">\( h_c = \dfrac{2}{3} H \)</span>
+                        </div>
+                    </div>
+
+                    <div class="text-content">
+                        <p>
+                            Donde <strong>&rho;</strong> es la densidad del fluido (1000 kg/m³ para agua), <strong>g</strong> = 9.81 m/s², <strong>h</strong> es la profundidad desde la superficie libre, <strong>H</strong> la altura total del muro y <strong>w(h)</strong> el ancho del muro a esa profundidad. Notablemente, la fuerza resultante no actúa en el centro del muro, sino a 2/3 de la profundidad desde la superficie.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Justificación -->
+                <div class="section-card">
+                    <span class="section-subtitle">Justificación en Ingeniería</span>
+                    <h2 class="section-title">Mapa de Calor Automatizado vs. Cálculo Manual por Punto</h2>
+                    <div class="text-content">
+                        <p>
+                            Un muro de contención real puede tener una malla 3D compuesta por <strong>decenas de miles de vértices</strong>. Calcular manualmente la presión en cada punto sería imposible en tiempo razonable. El software BIM recorre algorítmicamente cada vértice de la malla, extrae su coordenada Y (profundidad), calcula <strong>P = &rho;gh</strong> y asigna un color al espectro de calor (azul → amarillo → rojo) proporcional al valor de presión.
+                        </p>
+                        <p>
+                            El resultado es un <strong>render de mapa de calor instantáneo</strong> que le permite al ingeniero de estructuras identificar visualmente, en segundos, las zonas donde se necesita mayor espesor de concreto, acero de refuerzo adicional, o anclas de tensión. Esto reduce el tiempo de análisis estructural de semanas a minutos y elimina errores humanos en los cálculos de profundidad.
+                        </p>
+                    </div>
+
+                    <!-- Panel de datos del fluido -->
+                    <div class="presion-data-grid">
+                        <div class="presion-data-card">
+                            <span class="presion-data-value">1000</span>
+                            <span class="presion-data-unit">kg/m³</span>
+                            <span class="presion-data-label">Densidad del agua (&rho;)</span>
+                        </div>
+                        <div class="presion-data-card">
+                            <span class="presion-data-value">9.81</span>
+                            <span class="presion-data-unit">m/s²</span>
+                            <span class="presion-data-label">Gravedad (g)</span>
+                        </div>
+                        <div class="presion-data-card">
+                            <span class="presion-data-value">2/3 H</span>
+                            <span class="presion-data-unit">desde superficie</span>
+                            <span class="presion-data-label">Punto crítico (h<sub>c</sub>)</span>
+                        </div>
+                        <div class="presion-data-card">
+                            <span class="presion-data-value">lineal</span>
+                            <span class="presion-data-unit">con h</span>
+                            <span class="presion-data-label">Crecimiento de P</span>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ===== SECCIÓN B: Diagrama Interactivo ===== -->
+            <section class="sim-section">
+                <div class="sim-container-card">
+                    <span class="section-subtitle">Elemento de Apoyo</span>
+                    <h2 class="section-title" style="font-size: 1.4rem; margin-bottom: 1rem;">Diagrama de Presión Hidrostática — Muro de Contención</h2>
+
+                    <!-- Lienzo de p5.js -->
+                    <div id="sim-container-presion"></div>
+
+                    <!-- Panel de Telemetría -->
+                    <div class="telemetry-panel">
+                        <div class="telemetry-title">Parámetros Hidrostáticos</div>
+                        <div class="telemetry-grid">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Altura del agua (H)</span>
+                                <span id="val-H" class="telemetry-value">10.0 m</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Presión en base (P<sub>max</sub>)</span>
+                                <span id="val-pmax" class="telemetry-value">0 Pa</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Punto crítico (h<sub>c</sub>)</span>
+                                <span id="val-hc" class="telemetry-value">0.0 m</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Fuerza total estimada</span>
+                                <span id="val-fuerza" class="telemetry-value">0 kN/m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles Interactivos -->
+                    <div class="controls-panel">
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span class="slider-label">Altura del fluido (H)</span>
+                                <span class="slider-value"><span id="lbl-H">10</span> m</span>
+                            </div>
+                            <input id="slider-H" class="custom-slider" type="range"
+                                   min="2" max="20" step="0.5" value="10"
+                                   oninput="document.getElementById('lbl-H').innerText = parseFloat(this.value).toFixed(1)">
+                        </div>
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span class="slider-label">Densidad del fluido (&rho;)</span>
+                                <span class="slider-value"><span id="lbl-rho">1000</span> kg/m³</span>
+                            </div>
+                            <input id="slider-rho" class="custom-slider" type="range"
+                                   min="800" max="2000" step="50" value="1000"
+                                   oninput="document.getElementById('lbl-rho').innerText = this.value">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div><!-- /.subpage-layout -->
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Sidney Rodríguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+        </div>
+    </footer>
+
+    <!-- Script de la simulación -->
+    <script src="../assets/js/sim-presion.js"></script>
+</body>
+</html>
