@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sintetizador Virtual VST por Modelado Físico | Portafolio Física I</title>
+    <meta name="description" content="Aplicación de ondas estacionarias al desarrollo de plugins de audio VST que sintetizan instrumentos de cuerda por modelado físico sin usar samples.">
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Librería p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <!-- MathJax para renderizado de ecuaciones -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <span class="nav-institution">Universidad CENFOTEC</span>
+            <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Navegación de retorno -->
+        <a href="../index.html" class="btn-back">
+            <span>&larr;</span> Volver al Inicio
+        </a>
+
+        <!-- Encabezado del Tema -->
+        <header class="hero" style="margin-bottom: 3rem;">
+            <div class="hero-content">
+                <span class="section-subtitle" style="color: var(--accent-purple);">Módulo Ondas y Sonido</span>
+                <h1 class="hero-title" style="font-size: 3rem;">Sintetizador Virtual VST por Modelado Físico</h1>
+                <p class="hero-description">Aplicación de la interferencia de ondas estacionarias al desarrollo de plugins de audio que simulan instrumentos de cuerda sin depender de muestras pregrabadas.</p>
+            </div>
+        </header>
+
+        <!-- Layout de una sola columna -->
+        <div class="subpage-layout">
+
+            <!-- ===== SECCIÓN A: Teoría y Aplicación en Software ===== -->
+            <section class="theory-section">
+
+                <!-- Caso Específico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Caso Específico</span>
+                    <h2 class="section-title">Plugin VST de Síntesis de Cuerda por Modelado Físico</h2>
+                    <div class="text-content">
+                        <p>
+                            Los plugins de síntesis por modelado físico (<em>Physical Modeling Synthesis</em>) como <strong>Pianoteq</strong> o <strong>Ample Guitar</strong> no almacenan grabaciones de instrumentos reales. En su lugar, el software resuelve en tiempo real las ecuaciones físicas de la vibración de una cuerda para generar la señal de audio de forma completamente procedural.
+                        </p>
+                        <p>
+                            Cuando el usuario pulsa una tecla MIDI, el plugin calcula la <strong>frecuencia fundamental y todos sus armónicos</strong> a partir de las propiedades físicas de la cuerda virtual (longitud, tensión, densidad lineal). Cada armónico es una onda senoidal pura; su superposición genera la forma de onda compleja y orgánica característica de los instrumentos de cuerda reales.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concepto Físico Aplicado -->
+                <div class="section-card">
+                    <span class="section-subtitle">Concepto Físico Aplicado</span>
+                    <h2 class="section-title">Ondas Estacionarias en Cuerdas: Frecuencias y Armónicos</h2>
+                    <div class="text-content">
+                        <p>
+                            Una cuerda tensa sujeta en ambos extremos solo puede vibrar en modos discretos donde se forman <strong>ondas estacionarias</strong>: patrones de interferencia entre la onda incidente y reflejada que generan puntos fijos de amplitud cero (<em>nodos</em>) y puntos de amplitud máxima (<em>antinodos</em>). Cada modo de vibración corresponde a un <strong>armónico</strong> del sonido.
+                        </p>
+                        <p>
+                            La condición de frontera exige que la longitud de la cuerda sea múltiplo entero de semilongitudes de onda: <strong>L = n&lambda;/2</strong>. La velocidad de propagación de la onda depende de la tensión T y la densidad lineal &mu; de la cuerda.
+                        </p>
+                    </div>
+
+                    <!-- Ecuaciones destacadas -->
+                    <div class="equations-container">
+                        <div class="equation-item">
+                            <span class="equation-label">Velocidad en la Cuerda</span>
+                            <span class="equation-math">\( v = \sqrt{T / \mu} \)</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Frecuencias de Armónicos</span>
+                            <span class="equation-math ondas-eq">\( f_n = \dfrac{n \cdot v}{2L} \)</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Ecuación de la Onda Estacionaria</span>
+                            <span class="equation-math">\( y(x,t) = A \sin\!\left(\dfrac{n\pi x}{L}\right)\cos(2\pi f_n t) \)</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Condición de Nodos</span>
+                            <span class="equation-math">\( x_k = \dfrac{k \cdot L}{n},\quad k = 0, 1, \dots, n \)</span>
+                        </div>
+                    </div>
+
+                    <div class="text-content">
+                        <p>
+                            Donde <strong>n</strong> es el número de armónico (n=1 es la fundamental), <strong>T</strong> la tensión en Newtons, <strong>&mu;</strong> la densidad lineal de masa (kg/m) y <strong>L</strong> la longitud de la cuerda. El plugin evalúa esta ecuación miles de veces por segundo para construir el buffer de audio.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Justificación -->
+                <div class="section-card">
+                    <span class="section-subtitle">Justificación en Ingeniería</span>
+                    <h2 class="section-title">Síntesis Procedural vs. Síntesis por Muestras (Sample-Based)</h2>
+                    <div class="text-content">
+                        <p>
+                            Un instrumento virtual basado en <em>samples</em> graba cientos o miles de notas reales y las reproduce interpolando entre ellas. Este enfoque requiere <strong>gigabytes de almacenamiento</strong>, no puede adaptarse al contexto y carece de expresividad dinámica genuina.
+                        </p>
+                        <p>
+                            El modelado físico basado en ondas estacionarias resuelve todos estos problemas: el plugin solo almacena los <strong>parámetros físicos del instrumento</strong> (T, &mu;, L) y genera el audio resolviéndolos dinámicamente. Esto permite al usuario variar la tensión de la cuerda en tiempo real (efecto de pitch-bend físicamente correcto), cambiar el material (afecta &mu;) o incluso simular el desgaste de las cuerdas. El resultado ocupa <strong>menos de 5 MB</strong> y produce un sonido más expresivo y realista que librerías de samples de decenas de gigabytes.
+                        </p>
+                    </div>
+
+                    <!-- Grid comparativo -->
+                    <div class="ondas-compare-grid">
+                        <div class="ondas-compare-card ondas-compare--sample">
+                            <span class="ondas-compare-label">Sample-Based</span>
+                            <ul class="ondas-compare-list">
+                                <li>~50 GB de almacenamiento</li>
+                                <li>Sonido estático, no adaptativo</li>
+                                <li>Sin control de parámetros físicos</li>
+                                <li>Alta latencia de carga</li>
+                            </ul>
+                        </div>
+                        <div class="ondas-compare-card ondas-compare--physical">
+                            <span class="ondas-compare-label">Modelado Físico ✦</span>
+                            <ul class="ondas-compare-list">
+                                <li>&lt;5 MB — 100% procedural</li>
+                                <li>Tensión, material y longitud variables</li>
+                                <li>Expresividad dinámica real</li>
+                                <li>Respuesta instantánea</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== SECCIÓN B: Simulación Interactiva ===== -->
+            <section class="sim-section">
+                <div class="sim-container-card">
+                    <span class="section-subtitle">Elemento de Apoyo</span>
+                    <h2 class="section-title" style="font-size: 1.4rem; margin-bottom: 1rem;">Simulador de Cuerda Vibrante — Ondas Estacionarias</h2>
+
+                    <!-- Lienzo de p5.js -->
+                    <div id="sim-container-ondas"></div>
+
+                    <!-- Panel de Telemetría -->
+                    <div class="telemetry-panel">
+                        <div class="telemetry-title">Parámetros de la Cuerda en Tiempo Real</div>
+                        <div class="telemetry-grid">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Armónico (n)</span>
+                                <span id="val-n" class="telemetry-value">1</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad (v)</span>
+                                <span id="val-v-ondas" class="telemetry-value">0.00 m/s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Frecuencia (f<sub>n</sub>)</span>
+                                <span id="val-fn" class="telemetry-value">0.00 Hz</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Longitud de onda (&lambda;)</span>
+                                <span id="val-lambda" class="telemetry-value">0.00 m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles Interactivos -->
+                    <div class="controls-panel">
+
+                        <!-- Slider tensión -->
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span class="slider-label">Tensión de la Cuerda (T)</span>
+                                <span class="slider-value"><span id="lbl-tension">100</span> N</span>
+                            </div>
+                            <input id="slider-tension" class="custom-slider" type="range"
+                                   min="10" max="400" step="5" value="100"
+                                   oninput="document.getElementById('lbl-tension').innerText = this.value">
+                        </div>
+
+                        <!-- Botones de armónico -->
+                        <div class="ondas-harmonic-group">
+                            <span class="slider-label">Número de Armónico (n)</span>
+                            <div class="ondas-harmonic-buttons">
+                                <button id="btn-n1" class="ondas-harmonic-btn ondas-harmonic-btn--active">n = 1</button>
+                                <button id="btn-n2" class="ondas-harmonic-btn">n = 2</button>
+                                <button id="btn-n3" class="ondas-harmonic-btn">n = 3</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div><!-- /.subpage-layout -->
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Sidney Rodríguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+        </div>
+    </footer>
+
+    <!-- Script de la simulación -->
+    <script src="../assets/js/sim-ondas.js"></script>
+</body>
+</html>

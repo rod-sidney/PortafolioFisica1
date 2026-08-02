@@ -908,3 +908,182 @@ body {
     }
 }
 
+
+/* ============================================================
+   Ondas Estacionarias
+   Página: Sintetizador Virtual VST por Modelado Físico
+   ============================================================ */
+
+/* Ecuación principal resaltada */
+.ondas-eq {
+    color: var(--accent-yellow);
+    font-size: 1.05rem;
+}
+
+/* Grid comparativo Sample vs. Modelado Físico */
+.ondas-compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 1.75rem;
+}
+
+.ondas-compare-card {
+    border-radius: 10px;
+    padding: 1.4rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    border: 1px solid transparent;
+    transition: var(--transition-smooth);
+}
+
+.ondas-compare--sample {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.07);
+}
+
+.ondas-compare--sample:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.ondas-compare--physical {
+    background-color: rgba(246, 130, 213, 0.07);
+    border-color: rgba(246, 130, 213, 0.28);
+}
+
+.ondas-compare--physical:hover {
+    background-color: rgba(246, 130, 213, 0.12);
+    border-color: var(--accent-light);
+    box-shadow: 0 6px 20px rgba(246, 130, 213, 0.1);
+    transform: translateY(-2px);
+}
+
+.ondas-compare-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-light);
+}
+
+.ondas-compare--sample .ondas-compare-label {
+    color: var(--text-secondary);
+}
+
+.ondas-compare-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.ondas-compare-list li {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.4;
+}
+
+.ondas-compare-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: rgba(170, 162, 245, 0.4);
+    font-size: 0.7rem;
+}
+
+.ondas-compare--physical .ondas-compare-list li {
+    color: var(--text-primary);
+}
+
+.ondas-compare--physical .ondas-compare-list li::before {
+    color: var(--accent-light);
+}
+
+/* Grupo de botones de armónico */
+.ondas-harmonic-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.ondas-harmonic-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.ondas-harmonic-btn {
+    background-color: rgba(48, 66, 181, 0.12);
+    color: var(--text-secondary);
+    border: 1px solid rgba(48, 66, 181, 0.35);
+    border-radius: 8px;
+    padding: 0.6rem 1.4rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    user-select: none;
+}
+
+.ondas-harmonic-btn:hover {
+    background-color: rgba(48, 66, 181, 0.25);
+    color: var(--text-primary);
+    border-color: var(--accent-purple);
+}
+
+.ondas-harmonic-btn--active {
+    background-color: var(--accent-blue);
+    color: var(--text-primary);
+    border-color: var(--accent-light);
+    box-shadow: 0 0 16px rgba(246, 130, 213, 0.3);
+}
+
+.ondas-harmonic-btn--active:hover {
+    background-color: var(--accent-light);
+    color: var(--bg-primary);
+    border-color: var(--accent-light);
+}
+
+/* Canvas container para ondas */
+#sim-container-ondas {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #1B1B1B;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sim-container-ondas canvas {
+    display: block;
+    max-width: 100%;
+    height: auto !important;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .ondas-compare-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ondas-harmonic-buttons {
+        gap: 0.5rem;
+    }
+
+    .ondas-harmonic-btn {
+        flex: 1;
+        text-align: center;
+    }
+}
