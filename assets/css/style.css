@@ -664,3 +664,247 @@ body {
 
 
 
+/* ============================================================
+   MAS — Movimiento Armónico Simple Amortiguado
+   Página: Físicas de Suspensión en Simuladores de Conducción
+   ============================================================ */
+
+/* Ecuación MAS con resaltado especial */
+.mas-eq {
+    font-size: 1rem;
+    color: var(--accent-yellow);
+    font-style: italic;
+}
+
+/* Grid de regímenes de amortiguamiento */
+.mas-regime-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.mas-regime-card {
+    border-radius: 10px;
+    padding: 1.2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: var(--transition-smooth);
+}
+
+.mas-regime-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.mas-regime--under {
+    background-color: rgba(246, 130, 213, 0.07);
+    border-color: rgba(246, 130, 213, 0.25);
+}
+
+.mas-regime--under:hover {
+    background-color: rgba(246, 130, 213, 0.12);
+    border-color: var(--accent-light);
+}
+
+.mas-regime--critical {
+    background-color: rgba(255, 250, 163, 0.07);
+    border-color: rgba(255, 250, 163, 0.25);
+}
+
+.mas-regime--critical:hover {
+    background-color: rgba(255, 250, 163, 0.12);
+    border-color: var(--accent-yellow);
+}
+
+.mas-regime--over {
+    background-color: rgba(48, 66, 181, 0.1);
+    border-color: rgba(48, 66, 181, 0.3);
+}
+
+.mas-regime--over:hover {
+    background-color: rgba(48, 66, 181, 0.16);
+    border-color: var(--accent-blue);
+}
+
+.mas-regime-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.mas-regime-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-primary);
+}
+
+.mas-regime-desc {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+    line-height: 1.4;
+}
+
+/* Botón de bache con estado activo */
+.mas-btn-bache {
+    background: linear-gradient(135deg, var(--accent-blue) 0%, rgba(48, 66, 181, 0.8) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.mas-btn-bache::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent-purple) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mas-btn-bache:hover::before {
+    opacity: 0.2;
+}
+
+.mas-btn-bache--active {
+    animation: mas-bache-pulse 0.3s ease;
+}
+
+@keyframes mas-bache-pulse {
+    0%   { transform: scale(1); box-shadow: 0 0 0 rgba(246, 130, 213, 0); }
+    50%  { transform: scale(0.96); box-shadow: 0 0 20px rgba(246, 130, 213, 0.6); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(246, 130, 213, 0); }
+}
+
+/* Responsive para grid de regímenes */
+@media (max-width: 600px) {
+    .mas-regime-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ============================================================
+   Péndulo de Torsión
+   Página: Simulador de Calibración de Relojes Mecánicos
+   ============================================================ */
+
+/* Ecuación de período resaltada */
+.torsion-eq {
+    color: var(--accent-yellow);
+    font-size: 1.05rem;
+}
+
+/* Grid de métricas de impacto */
+.torsion-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1.75rem;
+}
+
+.torsion-metric-card {
+    background-color: rgba(48, 66, 181, 0.08);
+    border: 1px solid rgba(48, 66, 181, 0.28);
+    border-radius: 10px;
+    padding: 1.4rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.torsion-metric-card:hover {
+    background-color: rgba(48, 66, 181, 0.14);
+    border-color: var(--accent-purple);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(48, 66, 181, 0.15);
+}
+
+.torsion-metric-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent-light);
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+.torsion-metric-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* Placeholder de video */
+.torsion-video-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #161616 0%, #1e1e2e 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border-radius: 8px;
+    border: 1px dashed rgba(170, 162, 245, 0.3);
+    padding: 2rem;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.torsion-video-placeholder:hover {
+    border-color: var(--accent-purple);
+    background: linear-gradient(135deg, #1a1a2a 0%, #222235 100%);
+}
+
+.torsion-placeholder-icon {
+    font-size: 2.5rem;
+    color: var(--accent-purple);
+    opacity: 0.5;
+    line-height: 1;
+    transition: var(--transition-smooth);
+}
+
+.torsion-video-placeholder:hover .torsion-placeholder-icon {
+    opacity: 0.85;
+    transform: scale(1.1);
+}
+
+.torsion-placeholder-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    max-width: 380px;
+    line-height: 1.5;
+}
+
+.torsion-placeholder-hint {
+    font-size: 0.75rem;
+    color: rgba(170, 162, 245, 0.45);
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* Responsive métricas */
+@media (max-width: 600px) {
+    .torsion-metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .torsion-metric-value {
+        font-size: 1.5rem;
+    }
+}
+

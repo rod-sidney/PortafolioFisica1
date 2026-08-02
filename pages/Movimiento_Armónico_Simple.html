@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Físicas de Suspensión en Simuladores de Conducción | Portafolio Física I</title>
+    <meta name="description" content="Análisis del Movimiento Armónico Simple amortiguado aplicado a la programación de suspensiones vehiculares en motores de físicas 3D para simuladores de conducción.">
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Librería p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <!-- MathJax para renderizado de ecuaciones -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <span class="nav-institution">Universidad CENFOTEC</span>
+            <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Navegación de retorno -->
+        <a href="../index.html" class="btn-back">
+            <span>&larr;</span> Volver al Inicio
+        </a>
+
+        <!-- Encabezado del Tema -->
+        <header class="hero" style="margin-bottom: 3rem;">
+            <div class="hero-content">
+                <span class="section-subtitle" style="color: var(--accent-purple);">Módulo Oscilaciones</span>
+                <h1 class="hero-title" style="font-size: 3rem;">Físicas de Suspensión en Simuladores de Conducción</h1>
+                <p class="hero-description">Aplicación del Movimiento Armónico Simple amortiguado a la programación procedural de la suspensión vehicular en motores de físicas 3D.</p>
+            </div>
+        </header>
+
+        <!-- Layout de una sola columna -->
+        <div class="subpage-layout">
+
+            <!-- ===== SECCIÓN A: Teoría y Aplicación en Software ===== -->
+            <section class="theory-section">
+
+                <!-- Caso Específico -->
+                <div class="section-card">
+                    <span class="section-subtitle">Caso Específico</span>
+                    <h2 class="section-title">Programación de la Suspensión Vehicular en un Motor de Físicas 3D</h2>
+                    <div class="text-content">
+                        <p>
+                            En el desarrollo de simuladores de conducción (como los usados en títulos de la categoría <strong>iRacing</strong> o <strong>Assetto Corsa Competizione</strong>), uno de los sistemas más críticos es la suspensión del vehículo. A diferencia de los juegos de arcade, donde la reacción del chasis ante baches y curvas está animada con curvas <em>Bézier</em> fijas, los simuladores serios calculan procedimentalmente la respuesta mecánica del chasis a cada perturbación del terreno.
+                        </p>
+                        <p>
+                            Cada rueda del vehículo se modela como una <strong>masa acoplada a un resorte y un amortiguador</strong>. Cuando la rueda golpea un bache, el motor de físicas no reproduce una animación: resuelve en tiempo real la ecuación diferencial del sistema masa-resorte-amortiguador para determinar exactamente cuánto se comprime el muelle, con qué velocidad rebota y en cuánto tiempo el chasis recupera el equilibrio.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concepto Físico Aplicado -->
+                <div class="section-card">
+                    <span class="section-subtitle">Concepto Físico Aplicado</span>
+                    <h2 class="section-title">Movimiento Armónico Simple Amortiguado</h2>
+                    <div class="text-content">
+                        <p>
+                            La <strong>rueda actúa como una masa</strong> (m) sujeta a un resorte con fuerza restauradora proporcional al desplazamiento (Ley de Hooke: F = -kx) y a un amortiguador que genera una fuerza opuesta a la velocidad (F<sub>d</sub> = -bv). La posición del chasis en función del tiempo se describe mediante la ecuación del MAS amortiguado:
+                        </p>
+                    </div>
+
+                    <!-- Ecuaciones destacadas -->
+                    <div class="equations-container">
+                        <div class="equation-item">
+                            <span class="equation-label">Posición MAS Amortiguado</span>
+                            <span class="equation-math mas-eq">\( x(t) = A \cdot e^{-\gamma t} \cdot \cos(\omega t + \phi) \)</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Frecuencia Angular Natural</span>
+                            <span class="equation-math">\( \omega_0 = \sqrt{k/m} \)</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Factor de Amortiguamiento (&gamma;)</span>
+                            <span class="equation-math">\( \gamma = b / (2m) \)</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Frecuencia con Amortiguamiento</span>
+                            <span class="equation-math">\( \omega = \sqrt{\omega_0^2 - \gamma^2} \)</span>
+                        </div>
+                    </div>
+
+                    <div class="text-content">
+                        <p>
+                            Donde <strong>A</strong> es la amplitud inicial del impacto, <strong>e<sup>-&gamma;t</sup></strong> es el factor de decaimiento exponencial que reduce la oscilación con el tiempo, y <strong>&omega;</strong> es la frecuencia angular del sistema amortiguado. Los parámetros <strong>k</strong> (rigidez del resorte) y <strong>b</strong> (coeficiente del amortiguador) son los que el ingeniero de vehículos ajusta para controlar el comportamiento del vehículo.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Justificación -->
+                <div class="section-card">
+                    <span class="section-subtitle">Justificación en Ingeniería</span>
+                    <h2 class="section-title">Simulación Procedural vs. Animaciones Pregrabadas</h2>
+                    <div class="text-content">
+                        <p>
+                            En lugar de usar animaciones predefinidas para cada tipo de superficie, el motor de físicas resuelve la ecuación del MAS amortiguado en cada fotograma. Esto le permite calcular <strong>procedimentalmente</strong> cómo el vehículo absorbe el impacto, oscila y recupera su estado de reposo ante cualquier perturbación, sin importar su magnitud o dirección.
+                        </p>
+                        <p>
+                            El beneficio para la ingeniería del software es enorme: en lugar de escribir y mantener cientos de animaciones distintas para terrenos irregulares, el desarrollador solo debe definir los parámetros físicos del vehículo (k, b, m) y el motor de físicas se encarga del resto. El resultado es una simulación <strong>fluida, físicamente precisa e infinitamente variable</strong> que responde en tiempo real a superficies generadas proceduralmente.
+                        </p>
+                        <p>
+                            Además, estos mismos parámetros permiten simular distintos tipos de vehículos: un auto de F1 tendrá una suspensión muy rígida (k alto, b alto → subamortiguado) mientras que un todoterreno tendrá una suspensión blanda (k bajo, b moderado → críticamente amortiguado), todo cambiando únicamente los coeficientes de la ecuación.
+                        </p>
+                    </div>
+
+                    <!-- Tags de régimen de amortiguamiento -->
+                    <div class="mas-regime-grid">
+                        <div id="btn-regime-under" class="mas-regime-card mas-regime--under" style="cursor: pointer;">
+                            <span class="mas-regime-icon">〰️</span>
+                            <span class="mas-regime-label">Subamortiguado</span>
+                            <span class="mas-regime-desc">Oscila antes de detenerse. Deportivos.</span>
+                        </div>
+                        <div id="btn-regime-critical" class="mas-regime-card mas-regime--critical" style="cursor: pointer;">
+                            <span class="mas-regime-icon">✦</span>
+                            <span class="mas-regime-label">Críticamente Amortiguado</span>
+                            <span class="mas-regime-desc">Regresa sin oscilar. SUVs.</span>
+                        </div>
+                        <div id="btn-regime-over" class="mas-regime-card mas-regime--over" style="cursor: pointer;">
+                            <span class="mas-regime-icon">⟶</span>
+                            <span class="mas-regime-label">Sobreamortiguado</span>
+                            <span class="mas-regime-desc">Retorno lento. Vehículos pesados.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== SECCIÓN B: Simulación Interactiva ===== -->
+            <section class="sim-section">
+                <div class="sim-container-card">
+                    <span class="section-subtitle">Elemento de Apoyo</span>
+                    <h2 class="section-title" style="font-size: 1.4rem; margin-bottom: 1rem;">Simulador de Suspensión Vehicular — MAS Amortiguado</h2>
+
+                    <!-- Lienzo de p5.js -->
+                    <div id="sim-container"></div>
+
+                    <!-- Panel de Telemetría -->
+                    <div class="telemetry-panel">
+                        <div class="telemetry-title">Telemetría de Suspensión en Tiempo Real</div>
+                        <div class="telemetry-grid">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Amplitud (A)</span>
+                                <span id="val-amplitud" class="telemetry-value">0.00 px</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Desplazamiento x(t)</span>
+                                <span id="val-xt" class="telemetry-value">0.00 px</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Tiempo (t)</span>
+                                <span id="val-tiempo" class="telemetry-value">0.00 s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Estado</span>
+                                <span id="val-estado" class="telemetry-value">EN REPOSO</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles Interactivos -->
+                    <div class="controls-panel">
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span class="slider-label">Rigidez del Resorte (k)</span>
+                                <span class="slider-value"><span id="lbl-k">4.0</span> N/m</span>
+                            </div>
+                            <input id="slider-k" class="custom-slider" type="range" min="1" max="10" step="0.5" value="4" oninput="document.getElementById('lbl-k').innerText = parseFloat(this.value).toFixed(1)">
+                        </div>
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span class="slider-label">Amortiguamiento (b)</span>
+                                <span class="slider-value"><span id="lbl-b">0.8</span></span>
+                            </div>
+                            <input id="slider-b" class="custom-slider" type="range" min="0.1" max="6" step="0.1" value="0.8" oninput="document.getElementById('lbl-b').innerText = parseFloat(this.value).toFixed(1)">
+                        </div>
+                        <div class="button-group">
+                            <button id="btn-bache" class="custom-button mas-btn-bache">
+                                ⚡ Simular Bache
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div><!-- /.subpage-layout -->
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Sidney Rodríguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+        </div>
+    </footer>
+
+    <!-- Script de la simulación -->
+    <script src="../assets/js/sim-mas.js"></script>
+</body>
+</html>

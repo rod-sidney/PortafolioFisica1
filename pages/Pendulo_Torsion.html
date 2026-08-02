@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Calibración de Relojes Mecánicos | Portafolio Física I</title>
+    <meta name="description"
+          content="Aplicación del Péndulo de Torsión al software industrial de calibración del volante espiral en relojes de alta gama. Portafolio Física I — Universidad CENFOTEC.">
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- MathJax para renderizado de ecuaciones -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+<body>
+
+<header class="navbar">
+    <div class="navbar-container">
+        <span class="nav-institution">Universidad CENFOTEC</span>
+        <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- Navegación de retorno -->
+    <a href="../index.html" class="btn-back">
+        <span>&larr;</span> Volver al Inicio
+    </a>
+
+    <!-- Encabezado del Tema -->
+    <header class="hero" style="margin-bottom: 3rem;">
+        <div class="hero-content">
+            <span class="section-subtitle" style="color: var(--accent-purple);">Módulo Oscilaciones</span>
+            <h1 class="hero-title" style="font-size: 3rem;">Simulador de Calibración de Relojes Mecánicos</h1>
+            <p class="hero-description">Uso del Péndulo de Torsión para modelar el comportamiento del volante espiral y
+                optimizar la precisión en la manufactura de relojes de alta gama.</p>
+        </div>
+    </header>
+
+    <!-- Layout de una sola columna -->
+    <div class="subpage-layout">
+
+        <!-- ===== SECCIÓN A: Teoría y Aplicación en Software ===== -->
+        <section class="theory-section">
+
+            <!-- Caso Específico -->
+            <div class="section-card">
+                <span class="section-subtitle">Caso Específico</span>
+                <h2 class="section-title">Software de Calibración del Volante Espiral en Relojería de Alta Gama</h2>
+                <div class="text-content">
+                    <p>
+                        En la industria relojera suiza (maisons como <strong>Patek Philippe</strong> o
+                        <strong>Rolex</strong>), el corazón del mecanismo es el sistema <em>volante-resorte espiral</em>.
+                        El volante (una rueda metálica de precisión) oscila torsionalmente gracias al resorte espiral
+                        que lo conecta al escape. La frecuencia de estas oscilaciones determina directamente la
+                        precisión del reloj: un reloj de alta gama oscila a 28,800 vph (vibraciones por hora), es decir,
+                        4 Hz.
+                    </p>
+                    <p>
+                        El software industrial de calibración permite a los ingenieros de diseño <strong>simular
+                        virtualmente</strong> cómo las propiedades físicas del resorte espiral (longitud, grosor, módulo
+                        de elasticidad del material) afectan el período de oscilación antes de fabricar la pieza. Esto
+                        reduce drásticamente el ciclo de prototipado y el desperdicio de materiales exóticos como el
+                        <em>Silinvar</em> (silicio cristalino).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Concepto Físico Aplicado -->
+            <div class="section-card">
+                <span class="section-subtitle">Concepto Físico Aplicado</span>
+                <h2 class="section-title">Péndulo de Torsión: Modelo Físico del Sistema Volante-Espiral</h2>
+                <div class="text-content">
+                    <p>
+                        Un <strong>péndulo de torsión</strong> es un sistema oscilante en el que la fuerza restauradora
+                        no proviene de la gravedad, sino del momento de torsión generado por un resorte retorcido. El
+                        volante de un reloj es el caso de ingeniería más perfecto de este modelo: el resorte espiral
+                        actúa como el elemento elástico que almacena y libera energía rotacional.
+                    </p>
+                    <p>
+                        La ecuación del movimiento del sistema se deriva de la segunda ley de Newton para rotación,
+                        donde el torque restaurador es proporcional al ángulo de giro (análogo a la Ley de Hooke
+                        rotacional):
+                    </p>
+                </div>
+
+                <!-- Ecuaciones destacadas -->
+                <div class="equations-container">
+                    <div class="equation-item">
+                        <span class="equation-label">Torque Restaurador (&tau;)</span>
+                        <span class="equation-math">\( \tau = -\kappa \cdot \theta \)</span>
+                    </div>
+                    <div class="equation-item">
+                        <span class="equation-label">Período de Oscilación (T)</span>
+                        <span class="equation-math torsion-eq">\( T = 2\pi \sqrt{\dfrac{I}{\kappa}} \)</span>
+                    </div>
+                    <div class="equation-item">
+                        <span class="equation-label">Momento de Inercia (Disco)</span>
+                        <span class="equation-math">\( I = \tfrac{1}{2} m r^2 \)</span>
+                    </div>
+                    <div class="equation-item">
+                        <span class="equation-label">Constante de Torsión (&kappa;)</span>
+                        <span class="equation-math">\( \kappa = \dfrac{G \cdot J}{L} \)</span>
+                    </div>
+                </div>
+
+                <div class="text-content">
+                    <p>
+                        Donde <strong>I</strong> es el momento de inercia del volante, <strong>&kappa;</strong> es la
+                        constante de torsión del resorte espiral, <strong>G</strong> es el módulo de rigidez del
+                        material, <strong>J</strong> es el segundo momento polar de área de la sección transversal del
+                        resorte y <strong>L</strong> es su longitud total. El software resuelve estas ecuaciones para
+                        cada geometría de resorte propuesta por el ingeniero.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Justificación -->
+            <div class="section-card">
+                <span class="section-subtitle">Justificación en Ingeniería</span>
+                <h2 class="section-title">Simulación Virtual vs. Prototipado Físico</h2>
+                <div class="text-content">
+                    <p>
+                        La manufactura de un resorte espiral en <em>Silinvar</em> o en aleaciones de Nivarox puede
+                        costar cientos de dólares por unidad y requiere equipamiento de litografía UV. Fabricar
+                        múltiples prototipos para ajustar empíricamente el período de oscilación sería económicamente
+                        prohibitivo.
+                    </p>
+                    <p>
+                        El software de calibración, al resolver numéricamente la ecuación <strong>T = 2&pi;&radic;(I/&kappa;)</strong>,
+                        permite al ingeniero <strong>parametrizar el espacio de diseño</strong>: variar el grosor del
+                        resorte, la longitud del espiral, o cambiar el material (y con ello su G) en milisegundos de
+                        cómputo, obteniendo la respuesta de período resultante de forma instantánea. Solo cuando la
+                        simulación converge en el período objetivo de 250 ms (4 Hz), se ordena la manufactura de la
+                        primera pieza física.
+                    </p>
+                    <p>
+                        Este paradigma de <strong>Digital Twin</strong> (gemelo digital), fundamentado directamente en
+                        las ecuaciones del péndulo de torsión, es un ejemplo paradigmático de cómo la física clásica
+                        habilita la ingeniería de software industrial de alta precisión.
+                    </p>
+                </div>
+
+                <!-- Métricas de impacto -->
+                <div class="torsion-metrics-grid">
+                    <div class="torsion-metric-card">
+                        <span class="torsion-metric-value">−87%</span>
+                        <span class="torsion-metric-label">Reducción en ciclos de prototipado</span>
+                    </div>
+                    <div class="torsion-metric-card">
+                        <span class="torsion-metric-value">±0.2 s</span>
+                        <span class="torsion-metric-label">Precisión objetivo por día</span>
+                    </div>
+                    <div class="torsion-metric-card">
+                        <span class="torsion-metric-value">4 Hz</span>
+                        <span class="torsion-metric-label">Frecuencia de oscilación estándar</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ===== SECCIÓN B: Contenido Multimedia ===== -->
+        <section class="sim-section">
+            <div class="media-container-card">
+                <span class="section-subtitle">Elemento de Apoyo</span>
+                <h2 class="section-title"
+                    style="font-size: 1.4rem; margin-bottom: 1rem; align-self: flex-start; width: 100%;">Demostración:
+                    Renderizado 3D de Péndulo de Torsión</h2>
+
+                <!-- Contenedor de video responsivo -->
+                <div class="video-wrapper"
+                     style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;">
+                    <iframe
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid rgba(48, 66, 181, 0.5);"
+                            src="https://www.youtube.com/embed/9_QsCLYs2mY?start=249"
+                            title="Simulación 3D de Péndulo de Torsión"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+
+                <p class="video-caption" style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">
+                    Renderizado 3D que ilustra el mecanismo interno de un reloj mecánico. La secuencia
+                    aísla el ensamble del volante (balance wheel) y el resorte espiral (hairspring), demostrando
+                    visualmente el comportamiento mecánico de un péndulo de torsión y la aplicación de la fuerza
+                    restauradora para mantener un periodo de oscilación constante.
+                </p>
+            </div>
+        </section>
+
+    </div><!-- /.subpage-layout -->
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+        <p>&copy; 2026 Sidney Rodríguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+    </div>
+</footer>
+
+</body>
+</html>
