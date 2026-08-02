@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación de Carga Aerodinámica (Downforce) | Portafolio Física I</title>
+    <meta name="description" content="Aplicación del Principio de Bernoulli al desarrollo de túneles de viento virtuales y simuladores de carreras con cálculo de downforce en alerones.">
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Librería p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <!-- MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <span class="nav-institution">Universidad CENFOTEC</span>
+            <span class="nav-course">Física I &bull; Ingeniería de Software</span>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <a href="../index.html" class="btn-back">
+            <span>&larr;</span> Volver al Inicio
+        </a>
+
+        <header class="hero" style="margin-bottom: 3rem;">
+            <div class="hero-content">
+                <span class="section-subtitle" style="color: var(--accent-purple);">Módulo Fluidos y Presión</span>
+                <h1 class="hero-title" style="font-size: 3rem;">Simulación de Carga Aerodinámica (Downforce)</h1>
+                <p class="hero-description">Aplicación del Principio de Bernoulli al desarrollo de túneles de viento virtuales y motores de físicas que calculan la sustentación negativa en alerones de vehículos de carreras.</p>
+            </div>
+        </header>
+
+        <div class="subpage-layout">
+
+            <!-- ===== SECCIÓN A ===== -->
+            <section class="theory-section">
+
+                <div class="section-card">
+                    <span class="section-subtitle">Caso Específico</span>
+                    <h2 class="section-title">Túnel de Viento Virtual para Cálculo de Downforce en Alerones de F1</h2>
+                    <div class="text-content">
+                        <p>
+                            Los simuladores de carreras profesionales (<strong>rFactor 2</strong>, <strong>iRacing</strong>) y las herramientas de diseño CFD (<em>Computational Fluid Dynamics</em>) calculan en tiempo real cómo el flujo de aire interactúa con cada componente aerodinámico del vehículo. El componente más crítico es el <strong>alerón trasero invertido</strong>, cuya función es generar una fuerza neta hacia abajo (<em>downforce</em>) que aumenta el agarre de las llantas sin aumentar el peso del vehículo.
+                        </p>
+                        <p>
+                            A diferencia de un ala de avión que genera sustentación, el alerón de F1 está invertido: el lado curvo apunta hacia abajo, obligando al aire a circular más rápido por debajo que por encima. Esta diferencia de velocidades, descrita por el Principio de Bernoulli, produce una diferencia de presiones que empuja el vehículo contra el asfalto.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <span class="section-subtitle">Concepto Físico Aplicado</span>
+                    <h2 class="section-title">Principio de Bernoulli: Relación Inversa entre Presión y Velocidad</h2>
+                    <div class="text-content">
+                        <p>
+                            El Principio de Bernoulli es una expresión de la conservación de energía para fluidos en movimiento. En un tubo de flujo estacionario e incompresible, la suma de presión estática, energía cinética y energía potencial por unidad de volumen se mantiene constante. Para flujo horizontal (despreciando gravedad), la relación se simplifica a:
+                        </p>
+                    </div>
+
+                    <div class="equations-container">
+                        <div class="equation-item">
+                            <span class="equation-label">Principio de Bernoulli</span>
+                            <span class="equation-math bern-eq">\( P_1 + \tfrac{1}{2}\rho V_1^2 = P_2 + \tfrac{1}{2}\rho V_2^2 \)</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Presión en zona rápida (bajo el alerón)</span>
+                            <span class="equation-math">\( P_{\text{inf}} = P_0 + \tfrac{1}{2}\rho V_1^2 - \tfrac{1}{2}\rho (k \cdot V_1)^2 \)</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Downforce Neta</span>
+                            <span class="equation-math">\( F_{\downarrow} = (P_{\text{sup}} - P_{\text{inf}}) \cdot A_{\text{alerón}} \)</span>
+                        </div>
+                        <div class="equation-item">
+                            <span class="equation-label">Factor de velocidad inferior (k &gt; 1)</span>
+                            <span class="equation-math">\( V_{\text{inf}} = k \cdot V_{\text{sup}},\quad k \approx 1.35 \)</span>
+                        </div>
+                    </div>
+
+                    <div class="text-content">
+                        <p>
+                            Donde <strong>&rho;</strong> = 1.225 kg/m³ (densidad del aire al nivel del mar), <strong>V<sub>sup</sub></strong> es la velocidad del flujo sobre el alerón y <strong>V<sub>inf</sub></strong> la velocidad por debajo. Al ser la superficie inferior más curva, el flujo recorre mayor distancia en el mismo tiempo, por lo que <strong>V<sub>inf</sub> &gt; V<sub>sup</sub></strong>, y por Bernoulli <strong>P<sub>inf</sub> &lt; P<sub>sup</sub></strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <span class="section-subtitle">Justificación en Ingeniería</span>
+                    <h2 class="section-title">Mecánicas de Agarre Dinámico y Efecto Rebufo</h2>
+                    <div class="text-content">
+                        <p>
+                            En el motor de físicas de un simulador, la downforce calculada con Bernoulli se suma al peso del vehículo para computar la <strong>fuerza normal sobre cada llanta</strong>. Al aumentar esta fuerza normal, el modelo de fricción (Pacejka Tire Model) permite mayor fuerza lateral máxima en las curvas. Esto crea mecánicas de conducción emergentes: a mayor velocidad, mayor agarre en curvas, pero también mayor resistencia aerodinámica.
+                        </p>
+                        <p>
+                            El <strong>efecto rebufo</strong> (<em>slipstream</em>) es otro fenómeno habilitado por este modelo: cuando un vehículo sigue a otro de cerca, entra en su estela de baja presión, lo que reduce la diferencia de presiones sobre su propio alerón y, por ende, su downforce. El motor de físicas detecta esta interferencia aerodinámica y temporalmente aumenta la velocidad máxima del vehículo que sigue (menor resistencia), a costa de reducir su agarre en curvas.
+                        </p>
+                    </div>
+
+                    <!-- Indicadores de impacto -->
+                    <div class="bern-impact-grid">
+                        <div class="bern-impact-card">
+                            <span class="bern-impact-value">~1.35×</span>
+                            <span class="bern-impact-label">Factor de velocidad inferior (k)</span>
+                        </div>
+                        <div class="bern-impact-card">
+                            <span class="bern-impact-value">V²</span>
+                            <span class="bern-impact-label">Crecimiento cuadrático del downforce</span>
+                        </div>
+                        <div class="bern-impact-card">
+                            <span class="bern-impact-value">CFD</span>
+                            <span class="bern-impact-label">Método de simulación numérica</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== SECCIÓN B ===== -->
+            <section class="sim-section">
+                <div class="sim-container-card">
+                    <span class="section-subtitle">Elemento de Apoyo</span>
+                    <h2 class="section-title" style="font-size: 1.4rem; margin-bottom: 1rem;">Túnel de Viento Virtual — Alerón Invertido</h2>
+
+                    <div id="sim-container-bern"></div>
+
+                    <!-- Telemetría -->
+                    <div class="telemetry-panel">
+                        <div class="telemetry-title">Telemetría Aerodinámica en Tiempo Real</div>
+                        <div class="telemetry-grid">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad del flujo (V<sub>sup</sub>)</span>
+                                <span id="val-vsup" class="telemetry-value">0.0 m/s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Velocidad inferior (V<sub>inf</sub>)</span>
+                                <span id="val-vinf" class="telemetry-value">0.0 m/s</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Presión Superior (P<sub>sup</sub>)</span>
+                                <span id="val-psup" class="telemetry-value">101 325 Pa</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Presión Inferior (P<sub>inf</sub>)</span>
+                                <span id="val-pinf" class="telemetry-value">101 325 Pa</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">ΔP (P<sub>sup</sub> − P<sub>inf</sub>)</span>
+                                <span id="val-dp" class="telemetry-value">0 Pa</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">Downforce (A = 1 m²)</span>
+                                <span id="val-df" class="telemetry-value">0.0 N</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles -->
+                    <div class="controls-panel">
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span class="slider-label">Velocidad del Flujo de Aire (V)</span>
+                                <span class="slider-value"><span id="lbl-speed">50</span> m/s</span>
+                            </div>
+                            <input id="slider-speed" class="custom-slider" type="range"
+                                   min="0" max="100" step="1" value="50"
+                                   oninput="document.getElementById('lbl-speed').innerText = this.value">
+                        </div>
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span class="slider-label">Factor de curvatura inferior (k)</span>
+                                <span class="slider-value"><span id="lbl-k-bern">1.35</span></span>
+                            </div>
+                            <input id="slider-k-bern" class="custom-slider" type="range"
+                                   min="1.05" max="1.8" step="0.05" value="1.35"
+                                   oninput="document.getElementById('lbl-k-bern').innerText = parseFloat(this.value).toFixed(2)">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Sidney Rodríguez &bull; Bachillerato en Ingeniería del Software &bull; Universidad CENFOTEC</p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/sim-bernoulli.js"></script>
+</body>
+</html>

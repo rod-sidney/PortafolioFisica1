@@ -1184,3 +1184,86 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* ============================================================
+   Bernoulli / Downforce
+   Página: Simulación de Carga Aerodinámica (Downforce)
+   ============================================================ */
+
+/* Ecuación de Bernoulli resaltada */
+.bern-eq {
+    color: var(--accent-yellow);
+    font-size: 1rem;
+}
+
+/* Grid de indicadores de impacto */
+.bern-impact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1.75rem;
+}
+
+.bern-impact-card {
+    background-color: rgba(246, 130, 213, 0.06);
+    border: 1px solid rgba(246, 130, 213, 0.22);
+    border-radius: 10px;
+    padding: 1.2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.bern-impact-card:hover {
+    background-color: rgba(246, 130, 213, 0.12);
+    border-color: var(--accent-light);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(246, 130, 213, 0.12);
+}
+
+.bern-impact-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent-light);
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 1.1;
+}
+
+.bern-impact-label {
+    font-size: 0.74rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* Canvas container para Bernoulli */
+#sim-container-bern {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #1B1B1B;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sim-container-bern canvas {
+    display: block;
+    max-width: 100%;
+    height: auto !important;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .bern-impact-grid {
+        grid-template-columns: 1fr;
+    }
+}
